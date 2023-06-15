@@ -1,24 +1,41 @@
+'use client'
+
 import Image from 'next/image'
 import styles from './page.module.css'
+import { useEffect } from 'react';
+import { io, Socket } from "socket.io-client";
+
+let socket : Socket;
 
 export default function Home() {
+  useEffect(() => socketInit(), []);
+
+  const socketInit = () => {
+    socket = io();
+
+    socket.on('connect', () => {
+      console.log('connected')
+      socket.emit('Hello', 30);
+    })
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
-          Get started by editing&nbsp;
+          CGSG forever!!!&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
         </p>
         <div>
           <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href="https://www.school30.spb.ru/cgsg/"
             target="_blank"
             rel="noopener noreferrer"
           >
             By{' '}
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
+              src="/CGSG-Logo.svg"
+              alt="CGSG logo"
               className={styles.vercelLogo}
               width={100}
               height={24}
@@ -31,10 +48,10 @@ export default function Home() {
       <div className={styles.center}>
         <Image
           className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
+          src="/CGSG-Logo.svg"
+          alt="CGSG logo"
+          width={360}
+          height={240}
           priority
         />
       </div>
