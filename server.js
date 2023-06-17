@@ -1,51 +1,367 @@
-// Create Next.js application
-const next = require('next');
-const dev = process.env.NODE_ENV !== 'production';
-const next_app = next({dev})
+const default_sheet = (name) => {return {
+  name,
+  styles: {
+    "red": {
+      bgColor: "red",
+      labelColor: "white",
+      textColor: "rgb(255, 255, 80)",
+    },
+    "yellow": {
+      bgColor: "yellow",
+      labelColor: "black",
+      textColor: "black",
+    },
+    "green": {
+      bgColor: "green",
+      labelColor: "black",
+      textColor: "black",
+    }
+  },
+  cards: [
+    {label: "nomral", style: "yellow", text: "sample normal task"},
+    {label: "important", style: "red", text: "sample important task"},
+    {label: "no care", style: "green", text: "sample easy task"},
+  ],
+  columns: [
+    {lebel: "to do", cards: [0]},
+    {lebel: "done", cards: []},
+    {lebel: "in work", cards: [2, 1]},
+  ],
+  tables: {
+    "main": {
+      columns: [0, 1, 2]
+    }
+  }
+}}
 
-// Get standard requests handler and run preparing
-const handle = next_app.getRequestHandler();
-const next_app_prepare = next_app.prepare();
+(async () => {
+  // Some utility
+  const path = require('path');
+  const { exit } = require('process');
 
-// Create http server
-const express = require('express');
-const http = require('http');
+  // Create Next.js application
+  const next = require('next');
+  const dev = process.env.NODE_ENV !== 'production';
+  const next_app = next({dev})
 
-const express_app = express();
-const server = http.createServer(express_app);
+  // Get standard requests handler and run preparing
+  const handle = next_app.getRequestHandler();
+  const next_app_prepare = next_app.prepare();
 
-// Connect database
-const path = require('path');
-const NeDB = require('nedb');
+  // Create http server
+  const express = require('express');
+  const http = require('http');
 
-const db = new NeDB({filename: path.resolve(__dirname, 'db/main.db'), autoload: true});
+  const express_app = express();
+  const server = http.createServer(express_app);
 
-// Create socket.io server
-const socketIOServer = require("socket.io").Server;
-const socketServer = new socketIOServer(server);
+  express_app.use(require('cookie-parser')());
+  express_app.use(require('cors')({credentials: true, origin: true}));
 
-// Setup callbacks
-express_app.get('*', (req, res) => {
-  return handle(req, res)
-})
+  // Connect database
+  const { Low } = await import('lowdb');
+  const { JSONFile } = await import('lowdb/node');
+  const bcrypt = require('bcrypt');
 
-socketServer.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('Hello', (...args) => {
-    console.log(`Hello with ${args.flat().join(', ')}`);
-  })
-});
+  const db = new Low(new JSONFile(path.resolve(__dirname, 'db/main.db')), {sheets: {}, users: {}});
+  db.was_change = false;
+  
+  function writeDB() {
+    if (db.was_change) {
+      db.was_change = false;
+      db.write()
+        .then(() => setTimeout(writeDB, 30 * 1000))
+        .catch(() => setTimeout(writeDB, 5 * 1000))
+    } else setTimeout(writeDB, 30 * 1000);
+  }
 
-next_app_prepare.then(() => {
-    server.listen(3000, (err) => {
-      if (err)
-        throw err;
-      console.log('> Ready on port 3000')
+  // We need to garant loaded database
+  await db.read();
+  setTimeout(writeDB, 30 * 1000);
+
+  /* Account creation function */
+  function createAccount(username, password) {
+    return new Promise((resolve) => {
+      if (db.data.users[username] !== undefined) {
+        resolve(false);
+      } else {
+        bcrypt.hash(password, 10, (err, hash) => {
+          if (err) {
+            resolve(false);
+          } else {
+            db.data.users[username] = {
+              username: username,
+              password: hash,
+              sheets: []
+            };
+            db.was_change = true;
+
+            resolve(true);
+          }
+        })
+      }
     })
+  }
 
-    //socketServer.listen(3001);
+  /* Account deleting function */
+  function deleteAccount(username) {
+    let user = db.data.users[username];
+
+    if (user !== undefined) {
+      return false;
+    } else {
+      if (Array.isArray(user.sheets)) user.sheets.forEach(val => {
+          try {
+            
+          } catch (_err) {}
+        })
+
+      delete db.data.users[username];
+
+      db.was_change = true;
+    }
+  }
+
+  /* Account login verification function */
+  function loginAccount(username, password) {
+    return new Promise(resolve => {
+      let user = db.data.users[username];
+
+      if (user === undefined) {
+        resolve(false);
+      } else {
+        bcrypt.compare(password, user.hash, res => resolve(res));
+      }
+    })
+  }
+
+  /* Sheet creation function */
+  function createSheet(name) {
+    if (db.data.sheets[name] !== undefined) {
+      return false;
+    } else {
+      /* Adding default "example" content */
+      db.data.sheets[name] = default_sheet(name)  ;
+      db.was_change = true;
+      
+      return true;
+    }
+  }
+
+  /* Sheet deleting */
+  function deleteSheet(name) {
+    let sheet = db.data.sheets[name];
+
+    if (sheet === undefined) {
+      return false;
+    } else {
+      if (Array.isArray(sheet.users)) sheet.users.forEach(val => deleteUserFromSheet(name, val, false));
+
+      delete db.data.sheets[name];
+      db.was_change = true;
+    }
+  }
+
+  /* User adding for sheet access */
+  function addUserToSheet(name, username) {
+    let sheet = db.data.sheets[name];
+    let user = db.data.users[username];
+
+    if (sheet === undefined || user === undefined) {
+      return false;
+    } else {
+      if (!Array.isArray(sheet.users)) sheet.users = []
+      sheet.users.push(username);
+
+      if (!Array.isArray(user.sheets)) user.sheets = []
+      user.sheets.push(name);
+
+      return true;
+    }
+  }
+
+  /* User removing from sheet access */
+  function deleteUserFromSheet(name, username, tableRemove=true) {
+    let sheet = db.data.sheets[name];
+    let user = db.data.users[username];
+
+    if (sheet === undefined || user === undefined) {
+      return false;
+    } else {
+      /* Remove from user */
+      {
+        let arr = db.data.users[username].sheets;
+
+        if (Array.isArray(arr)) {
+          let ind = arr.findIndex(val => val == name);
+          
+          if (ind !== -1) arr.splice(ind, 1);
+        }
+      }
+
+      /* Remove from table */
+      {
+        let arr = db.data.sheets[name].users;
+
+        if (Array.isArray(arr)) {
+          let ind = arr.findIndex(val => val == username);
+          
+          if (ind !== -1) arr.splice(ind, 1);
+
+          /* Delete sheet without users */
+          if (tableRemove && arr.length === 0) deleteSheet(name);
+        }
+      }
+    }
+  }
+
+  /* Sheet access validation */
+  function accessSheet(name, username) {
+    let sheet = db.data.sheets[name];
+    let user = db.data.users[username];
+
+    if (sheet === undefined || !Array.isArray(sheet.users) || sheet.users.findIndex(val => val === username) === -1 ||
+        user === undefined || !Array.isArray(user.sheets) || user.sheets.findIndex(val => val === name) === -1) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  // Create socket.io server
+  const socketIOServer = require("socket.io").Server;
+  const socketServer = new socketIOServer(server);
+
+  // Setup callbacks
+  express_app.post('/api/account/signup', (req, res) => {
+    function success() {
+      console.log('signup success');
+      res.sendStatus(200);
+    }
+
+    function fail() {
+      console.log('signup fail');
+      res.sendStatus(401);
+    }
+
+    let data = "";
+    
+    req.on('data', (chunk) => data += chunk)
+      .on('end', () => {
+        try {
+          let obj = JSON.parse(data);
+          if (obj.username === undefined || obj.password === undefined) throw "Incorrect object";
+
+          createAccount(obj.username, obj.password)
+            .then(val => {
+              if (val) success()
+              else fail()
+            })
+            .catch(err => fail())
+        } catch (err) {
+          fail();
+        }
+      })
+      .on('error', (err) => fail());
   })
-  .catch((ex) => {
-    console.error(ex.stack)
-    process.exit(1)
+
+  // Setup callbacks
+  express_app.post('/api/account/signin', (req, res) => {
+    function success() {
+      console.log('signin success');
+      res.sendStatus(200);
+    }
+
+    function fail() {
+      console.log('signin fail');
+      res.sendStatus(401);
+    }
+    
+    let data = "";
+
+    req.on('data', (chunk) => data += chunk)
+      .on('end', () => {
+        try {
+          let obj = JSON.parse(data);
+          if (obj.username === undefined || obj.password === undefined) throw "Incorrect object";
+
+          loginAccount(obj.username, obj.password)
+            .then(val => {
+              if (val) success()
+              else fail()
+            })
+            .catch(err => fail())
+        } catch (err) {
+          fail();
+        }
+      })
+      .on('error', (err) => fail());
   })
+
+  express_app.post('/api/sheets/create', (req, res) => {
+    function success() {
+      console.log('sheet creeation success');
+      res.sendStatus(200);
+    }
+
+    function fail() {
+      console.log('sheet creeation fail');
+      res.sendStatus(401);
+    }
+    
+    let data = "";
+
+    req.on('data', (chunk) => data += chunk)
+      .on('end', () => {
+        try {
+          let obj = JSON.parse(data);
+          if (obj.username === undefined || obj.name === undefined) throw "Incorrect object";
+
+          if (createSheet(obj.name) && addUserToSheet(obj.name, obj.username)) success()
+          else fail()
+        } catch (err) {
+          fail();
+        }
+      })
+      .on('error', (err) => fail());
+  })
+
+  express_app.get('/api/sheets/list', (req, res) => {
+    let username = req.cookies.username;
+    let user = db.data.users[username];
+
+    if (user === undefined) {
+      res.sendStatus(401);
+    } else {
+      res.writeHead(200);
+      res.write(JSON.stringify(user.sheets));
+      res.end();
+    }
+  })
+
+  express_app.get('/api/sheets/*', (req, res) => {
+    console.log(request.url.split('/'));
+  })
+  
+  express_app.get('*', (req, res) => {
+    return handle(req, res)
+  })
+                          
+  socketServer.on('connection', (socket) => {
+    console.log('a user connected');
+  });
+
+  next_app_prepare.then(() => {
+      server.listen(3000, (err) => {
+        if (err)
+          throw err;
+        console.log('> Ready on port 3000')
+      })
+
+      //socketServer.listen(3001);
+    })
+    .catch((ex) => {
+      console.error(ex.stack)
+      process.exit(1)
+  })
+})()

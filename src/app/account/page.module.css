@@ -1,0 +1,67 @@
+.accountWindow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0 0 13rem 0;
+
+  width: max-content;
+}
+
+.accountData {
+  padding: 1rem 1.2rem;
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  background: rgba(var(--card-rgb), 0.08);
+  
+  width: max-content;
+}
+
+.accountData label {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0.25rem;
+  border-radius: 0.175rem;
+
+  background: rgba(240, 180, 180, 0.25);
+  
+  width: max-content;
+}
+
+.accountData span {
+  display: inline-block;
+  background-color: bisque;
+  border-radius: 0.125rem;
+  width: max-content;
+}
+
+.accountData p {
+  margin: 0;
+  opacity: 0.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 30ch;
+}
+
+.logoutButton {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 1rem;
+
+  border-width: 0;
+}
+
+.logoutButton button {
+  align-self: center;
+  width: max-content;
+  break-inside: avoid;
+
+  padding: 0.125rem;
+
+  background-color: red;
+  font-size: 20px;
+  border-radius: 0.375rem;
+  border-width: 0;
+}

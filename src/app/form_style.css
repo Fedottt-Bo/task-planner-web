@@ -1,0 +1,47 @@
+.formStdInput {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px;
+}
+
+.formStdInput input {
+  width: 18rem;
+  height: 24px;
+  border-radius: 8px;
+  box-shadow: inset 1px 1px 8px 1px #cacaca;
+  border: none;
+  outline: none;
+  background-color: #fff;
+}
+
+.formStdInput input::placeholder {
+  opacity: 0.5;
+  text-align: center;
+}
+
+.formStdInput .formStdInputError {
+  min-height: 0;
+  width: inherit;
+}
+
+.formStdInput .formStdInputError p {
+  color:  rgba(255, 0, 0, 1.0);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  font-style: italic;
+}
+
+.formStdButton {
+  display: flex;
+  flex-direction: column;
+}
+
+.formStdButton button {
+  align-self: center;
+  width: min-content;
+  
+  padding: 0.25rem 1rem;
+  font-size: 20px;
+  border-radius: 0.125rem;
+}
