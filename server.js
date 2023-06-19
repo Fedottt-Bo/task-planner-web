@@ -228,9 +228,37 @@ const default_sheet = (name) => {return {
     }
   }
 
+  /* Sheet modifications functions */
+  const sheet_modify = {
+    move_card: function(sheet, column, new_column, ind, new_ind) {
+      sheet = db.data.sheets[sheet];
+      
+      /* Validate objects */
+      if (sheet === undefined) return false;
+      if (sheet.columns[column] === undefined || sheet.columns[new_column] === undefined) return false;
+      
+      /* Validate indices */
+      if (ind >= sheet.columns[column].cards.length) return false;
+      if (new_ind >= sheet.columns[new_column].cards.length - (column === new_column)) return false;
+
+      /* Permute */
+      const [removed] = sheet.columns[column].cards.splice(ind, 1);
+      sheet.columns[new_column].cards.splice(new_ind, 0, removed);
+
+      db.was_change = true;
+
+      return true;
+    }
+  }
+
   // Create socket.io server
   const socketIOServer = require("socket.io").Server;
-  const socketServer = new socketIOServer(server);
+  const socketServer = new socketIOServer(server, {
+    connectionStateRecovery: {
+      maxDisconnectionDuration: 2 * 60 * 1000,
+      skipMiddlewares: true,
+    }
+  });
 
   // Setup callbacks
   express_app.post('/api/account/signup', (req, res) => {
@@ -340,7 +368,14 @@ const default_sheet = (name) => {return {
   })
 
   express_app.get('/api/sheets/*', (req, res) => {
-    console.log(request.url.split('/'));
+    let path = req.url.split('/');
+    let name = path[path.length - 1];
+
+    if (accessSheet(path[path.length - 1], req.cookies.username)) {
+      res.send(JSON.stringify(db.data.sheets[name]));
+    } else {
+      res.sendStatus(403);
+    }
   })
   
   express_app.get('*', (req, res) => {
@@ -348,7 +383,37 @@ const default_sheet = (name) => {return {
   })
                           
   socketServer.on('connection', (socket) => {
-    console.log('a user connected');
+    socket.path = socket.handshake.query.path;
+    socket.username = socket.handshake.query.username;
+
+    if (socket.path === undefined || socket.username === undefined || !accessSheet(socket.path, socket.username)) {
+      socket.disconnect(true);
+      return;
+    }
+    
+    socket.emit('sheet', db.data.sheets[socket.path]);
+
+    if (socket.recovered) {
+    } else {
+      socket.join(socket.path);
+      socket
+        .on('move card inside', (column, ind, new_ind, callback) => {
+          if (sheet_modify.move_card(socket.path, column, column, ind, new_ind)) {
+            socket.to(socket.path).emit('move card inside', column, ind, new_ind);
+            callback(true);
+          } else {
+            callback(false);
+          }
+        })
+        .on('move card between', (column, new_column, ind, new_ind, callback) => {
+          if (move_card(socket.path, column, new_column, ind, new_ind)) {
+            socket.to(socket.path).emit('move card between', column, new_column, ind, new_ind);
+            callback(true);
+          } else {
+            callback(false);
+          }
+        })
+    }
   });
 
   next_app_prepare.then(() => {

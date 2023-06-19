@@ -21,7 +21,7 @@
       },
       "cards": [
         {
-          "label": "nomral",
+          "label": "normal",
           "style": "yellow",
           "text": "sample normal task"
         },
@@ -135,6 +135,482 @@
       "users": [
         "fedottt"
       ]
+    },
+    "sample-003": {
+      "name": "sample-003",
+      "styles": {
+        "red": {
+          "bgColor": "red",
+          "labelColor": "white",
+          "textColor": "rgb(255, 255, 80)"
+        },
+        "yellow": {
+          "bgColor": "yellow",
+          "labelColor": "black",
+          "textColor": "black"
+        },
+        "green": {
+          "bgColor": "green",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "cards": [
+        {
+          "label": "nomral",
+          "style": "yellow",
+          "text": "sample normal task"
+        },
+        {
+          "label": "important",
+          "style": "red",
+          "text": "sample important task"
+        },
+        {
+          "label": "no care",
+          "style": "green",
+          "text": "sample easy task"
+        }
+      ],
+      "columns": [
+        {
+          "lebel": "to do",
+          "cards": [
+            0
+          ]
+        },
+        {
+          "lebel": "done",
+          "cards": []
+        },
+        {
+          "lebel": "in work",
+          "cards": [
+            2,
+            1
+          ]
+        }
+      ],
+      "tables": {
+        "main": {
+          "columns": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      "users": [
+        "fedottt"
+      ]
+    },
+    "sample-004": {
+      "name": "sample-004",
+      "styles": {
+        "red": {
+          "bgColor": "red",
+          "labelColor": "white",
+          "textColor": "rgb(255, 255, 80)"
+        },
+        "yellow": {
+          "bgColor": "yellow",
+          "labelColor": "black",
+          "textColor": "black"
+        },
+        "green": {
+          "bgColor": "green",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "cards": [
+        {
+          "label": "nomral",
+          "style": "yellow",
+          "text": "sample normal task"
+        },
+        {
+          "label": "important",
+          "style": "red",
+          "text": "sample important task"
+        },
+        {
+          "label": "no care",
+          "style": "green",
+          "text": "sample easy task"
+        }
+      ],
+      "columns": [
+        {
+          "lebel": "to do",
+          "cards": [
+            0
+          ]
+        },
+        {
+          "lebel": "done",
+          "cards": []
+        },
+        {
+          "lebel": "in work",
+          "cards": [
+            2,
+            1
+          ]
+        }
+      ],
+      "tables": {
+        "main": {
+          "columns": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      "users": [
+        "fedottt"
+      ]
+    },
+    "cgsg-forever-table": {
+      "name": "cgsg-forever-table",
+      "styles": {
+        "red": {
+          "bgColor": "red",
+          "labelColor": "white",
+          "textColor": "rgb(255, 255, 80)"
+        },
+        "yellow": {
+          "bgColor": "yellow",
+          "labelColor": "black",
+          "textColor": "black"
+        },
+        "green": {
+          "bgColor": "green",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "cards": [
+        {
+          "label": "nomral",
+          "style": "yellow",
+          "text": "sample normal task"
+        },
+        {
+          "label": "important",
+          "style": "red",
+          "text": "sample important task"
+        },
+        {
+          "label": "no care",
+          "style": "green",
+          "text": "sample easy task"
+        }
+      ],
+      "columns": [
+        {
+          "lebel": "to do",
+          "cards": [
+            0
+          ]
+        },
+        {
+          "lebel": "done",
+          "cards": []
+        },
+        {
+          "lebel": "in work",
+          "cards": [
+            2,
+            1
+          ]
+        }
+      ],
+      "tables": {
+        "main": {
+          "columns": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      "users": [
+        "fedottt"
+      ]
+    },
+    "school_30": {
+      "name": "school_30",
+      "styles": {
+        "red": {
+          "bgColor": "red",
+          "labelColor": "white",
+          "textColor": "rgb(255, 255, 80)"
+        },
+        "yellow": {
+          "bgColor": "yellow",
+          "labelColor": "black",
+          "textColor": "black"
+        },
+        "green": {
+          "bgColor": "green",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "cards": [
+        {
+          "label": "nomral",
+          "style": "yellow",
+          "text": "sample normal task"
+        },
+        {
+          "label": "important",
+          "style": "red",
+          "text": "sample important task"
+        },
+        {
+          "label": "no care",
+          "style": "green",
+          "text": "sample easy task"
+        }
+      ],
+      "columns": [
+        {
+          "lebel": "to do",
+          "cards": [
+            0
+          ]
+        },
+        {
+          "lebel": "done",
+          "cards": []
+        },
+        {
+          "lebel": "in work",
+          "cards": [
+            2,
+            1
+          ]
+        }
+      ],
+      "tables": {
+        "main": {
+          "columns": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      "users": [
+        "fedottt"
+      ]
+    },
+    "OGE": {
+      "name": "OGE",
+      "styles": {
+        "red": {
+          "bgColor": "red",
+          "labelColor": "white",
+          "textColor": "rgb(255, 255, 80)"
+        },
+        "yellow": {
+          "bgColor": "yellow",
+          "labelColor": "black",
+          "textColor": "black"
+        },
+        "green": {
+          "bgColor": "green",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "cards": [
+        {
+          "label": "nomral",
+          "style": "yellow",
+          "text": "sample normal task"
+        },
+        {
+          "label": "important",
+          "style": "red",
+          "text": "sample important task"
+        },
+        {
+          "label": "no care",
+          "style": "green",
+          "text": "sample easy task"
+        }
+      ],
+      "columns": [
+        {
+          "lebel": "to do",
+          "cards": [
+            0
+          ]
+        },
+        {
+          "lebel": "done",
+          "cards": []
+        },
+        {
+          "lebel": "in work",
+          "cards": [
+            2,
+            1
+          ]
+        }
+      ],
+      "tables": {
+        "main": {
+          "columns": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      "users": [
+        "fedottt"
+      ]
+    },
+    "EGE": {
+      "name": "EGE",
+      "styles": {
+        "red": {
+          "bgColor": "red",
+          "labelColor": "white",
+          "textColor": "rgb(255, 255, 80)"
+        },
+        "yellow": {
+          "bgColor": "yellow",
+          "labelColor": "black",
+          "textColor": "black"
+        },
+        "green": {
+          "bgColor": "green",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "cards": [
+        {
+          "label": "nomral",
+          "style": "yellow",
+          "text": "sample normal task"
+        },
+        {
+          "label": "important",
+          "style": "red",
+          "text": "sample important task"
+        },
+        {
+          "label": "no care",
+          "style": "green",
+          "text": "sample easy task"
+        }
+      ],
+      "columns": [
+        {
+          "lebel": "to do",
+          "cards": [
+            0
+          ]
+        },
+        {
+          "lebel": "done",
+          "cards": []
+        },
+        {
+          "lebel": "in work",
+          "cards": [
+            2,
+            1
+          ]
+        }
+      ],
+      "tables": {
+        "main": {
+          "columns": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      "users": [
+        "fedottt"
+      ]
+    },
+    "other-stuff": {
+      "name": "other-stuff",
+      "styles": {
+        "red": {
+          "bgColor": "red",
+          "labelColor": "white",
+          "textColor": "rgb(255, 255, 80)"
+        },
+        "yellow": {
+          "bgColor": "yellow",
+          "labelColor": "black",
+          "textColor": "black"
+        },
+        "green": {
+          "bgColor": "green",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "cards": [
+        {
+          "label": "nomral",
+          "style": "yellow",
+          "text": "sample normal task"
+        },
+        {
+          "label": "important",
+          "style": "red",
+          "text": "sample important task"
+        },
+        {
+          "label": "no care",
+          "style": "green",
+          "text": "sample easy task"
+        }
+      ],
+      "columns": [
+        {
+          "lebel": "to do",
+          "cards": [
+            0
+          ]
+        },
+        {
+          "lebel": "done",
+          "cards": []
+        },
+        {
+          "lebel": "in work",
+          "cards": [
+            2,
+            1
+          ]
+        }
+      ],
+      "tables": {
+        "main": {
+          "columns": [
+            0,
+            1,
+            2
+          ]
+        }
+      },
+      "users": [
+        "fedottt"
+      ]
     }
   },
   "users": {
@@ -143,7 +619,14 @@
       "password": "$2b$10$31g8oHdptmywcLN6RSaOaOEnpOYdtWMeyNVXTNTH3zRnLHkE9mGZy",
       "sheets": [
         "sample-001",
-        "sample-002"
+        "sample-002",
+        "sample-003",
+        "sample-004",
+        "cgsg-forever-table",
+        "school_30",
+        "OGE",
+        "EGE",
+        "other-stuff"
       ]
     }
   }
