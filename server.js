@@ -267,7 +267,7 @@ const default_sheet = (name) => {return {
 
       /* Validate object */
       if (sheet === undefined) return false;
-      if (sheet.columns[column] === undefined) return false;
+      if (sheet.table[column] === undefined) return false;
       if (sheet.styles[style] === undefined) return false;
 
       /* Add card */

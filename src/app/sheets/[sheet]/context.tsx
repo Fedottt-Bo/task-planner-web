@@ -10,7 +10,7 @@ export type SheetType = {
 export type ContextType = {
   sheetName: string
   sheetObj: SheetType
-  addCard: (column: number, card: {}) => void
+  addCard: (column: number, card: {label: string, style: string, text: string}, sendMessage?: boolean) => boolean
 }
 
 export const context = createContext({} as ContextType);

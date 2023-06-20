@@ -65,6 +65,22 @@ export default function Home({ params }: { params: { sheet: string } }) {
     return true;
   }, [socket, sheet]);
 
+  const addCard = useCallback((column: number, card: {label: string, style: string, text: string}, sendMessage: boolean = true) => {
+    /* Validate */
+    if (sheet.table[column] === undefined) return false;
+    if (sheet.styles[card.style] === undefined) return false;
+
+    /* Add */
+    const new_sheet = {...sheet};
+    new_sheet.table[column].cards.push(card);
+
+    setSheet(new_sheet);
+
+    if (sendMessage) socket.emit('add card', column, card.label, card.style, card.text);
+
+    return true;
+  }, [sheet, socket])
+
   const onDragEnd = useCallback((params : DropResult) => {
     switch (params.type) {
     case "CARDS":
@@ -121,11 +137,10 @@ export default function Home({ params }: { params: { sheet: string } }) {
       .removeAllListeners('move column').on('move column', (ind, new_ind) => {
         if (!moveColumn(ind, new_ind)) Router.refresh();
       })
-  }, [socket, Router, moveCard, moveColumn]);
-
-  const addCard = useCallback((column: number, card: {}) => {
-
-  }, [sheet])
+      .removeAllListeners('add card').on('add card', (column, label, style, text) => {
+        if (!addCard(column, {label, style, text}, false)) Router.refresh();
+      })
+  }, [socket, Router, moveCard, moveColumn, addCard]);
 
   if (isLoading) {
     return (

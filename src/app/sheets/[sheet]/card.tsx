@@ -1,9 +1,12 @@
 'use client'
 
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Draggable } from 'react-beautiful-dnd';
 import { Popup } from 'reactjs-popup';
+import { DropdownList } from 'react-widgets';
 
+import "react-widgets/styles.css";
 import styles from './page.module.css';
 
 import { RichEditor, SimpleEditor } from './text_editor';
@@ -38,10 +41,19 @@ export function Card(props : {ind: number, column: number}) {
 
 
 export function AddCard(props: {ind: number}) {
-  const {sheetObj} = useContext(context);
+  const {sheetObj, addCard} = useContext(context);
+  const Router = useRouter();
 
   const labelEditor = useRef<any>(null);
   const textEditor = useRef<any>(null);
+  const [style, setStyle] = useState<string>("");
+
+  function onClick() {
+    const label = labelEditor.current.state.editorState.getCurrentContent().getPlainText('\u0001');
+    const text = textEditor.current.state.editorState.getCurrentContent().getPlainText('\u0001');
+
+    if (!addCard(props.ind, {label, style, text})) Router.refresh();
+  }
 
   return (
     <div className={styles.card}>
@@ -58,9 +70,18 @@ export function AddCard(props: {ind: number}) {
       nested
     >
       <div>
-        <SimpleEditor ref={labelEditor}/>
-        <SimpleEditor ref={textEditor}/>
-        <button onClick={() => {if (textEditor.current) console.log(textEditor.current.state.editorState.getCurrentContent().getPlainText('\u0001'))}}>aaaaaaaaa</button>
+        <span>Add card to column №{props.ind}</span>
+        <SimpleEditor placeholder="label" ref={labelEditor}/>
+        <DropdownList
+          data={Object.entries(sheetObj.styles).map(val => {return {name: val[0]}})}
+          dataKey="name"
+          textField="name"
+          defaultValue={Object.keys(sheetObj.styles)[0]}
+          defaultOpen={false}
+          onChange={(obj: {name: string}) => setStyle(obj.name)}
+        />
+        <SimpleEditor placeholder="text" ref={textEditor}/>
+        <button onClick={onClick}>Confirm</button>
       </div>
     </Popup>
       </div>

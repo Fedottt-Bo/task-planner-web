@@ -11,6 +11,7 @@ export class SimpleEditor extends React.Component {
     this.onChange = props.onChange ?
       (editorState) => {this.setState({editorState}); props.onChange({editorState})} :
       (editorState) => this.setState({editorState});
+    this.placeholder = props.placeholder ? props.placeholder : "";
   }
 
   render() {
@@ -26,6 +27,7 @@ export class SimpleEditor extends React.Component {
             editorState={editorState}
             onChange={this.onChange}
             spellCheck={true}
+            placeholder={this.placeholder}
             ariaMultiline={false}
           />
         </div>
