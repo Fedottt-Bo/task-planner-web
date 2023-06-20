@@ -38,32 +38,28 @@
       ],
       "columns": [
         {
-          "lebel": "to do",
+          "label": "to do",
           "cards": [
             0
           ]
         },
         {
-          "lebel": "done",
-          "cards": []
-        },
-        {
-          "lebel": "in work",
+          "label": "done",
           "cards": [
-            2,
-            1
-          ]
-        }
-      ],
-      "tables": {
-        "main": {
-          "columns": [
-            0,
             1,
             2
           ]
+        },
+        {
+          "label": "in work",
+          "cards": []
         }
-      },
+      ],
+      "table": [
+        2,
+        1,
+        0
+      ],
       "users": [
         "fedottt"
       ]
@@ -106,32 +102,28 @@
       ],
       "columns": [
         {
-          "lebel": "to do",
+          "label": "to do",
           "cards": [
             0
           ]
         },
         {
-          "lebel": "done",
+          "label": "done",
           "cards": []
         },
         {
-          "lebel": "in work",
+          "label": "in work",
           "cards": [
             2,
             1
           ]
         }
       ],
-      "tables": {
-        "main": {
-          "columns": [
-            0,
-            1,
-            2
-          ]
-        }
-      },
+      "table": [
+        0,
+        1,
+        2
+      ],
       "users": [
         "fedottt"
       ]
@@ -174,32 +166,28 @@
       ],
       "columns": [
         {
-          "lebel": "to do",
+          "label": "to do",
           "cards": [
             0
           ]
         },
         {
-          "lebel": "done",
+          "label": "done",
           "cards": []
         },
         {
-          "lebel": "in work",
+          "label": "in work",
           "cards": [
             2,
             1
           ]
         }
       ],
-      "tables": {
-        "main": {
-          "columns": [
-            0,
-            1,
-            2
-          ]
-        }
-      },
+      "table": [
+        0,
+        1,
+        2
+      ],
       "users": [
         "fedottt"
       ]
@@ -242,32 +230,28 @@
       ],
       "columns": [
         {
-          "lebel": "to do",
+          "label": "to do",
           "cards": [
             0
           ]
         },
         {
-          "lebel": "done",
+          "label": "done",
           "cards": []
         },
         {
-          "lebel": "in work",
+          "label": "in work",
           "cards": [
             2,
             1
           ]
         }
       ],
-      "tables": {
-        "main": {
-          "columns": [
-            0,
-            1,
-            2
-          ]
-        }
-      },
+      "table": [
+        0,
+        1,
+        2
+      ],
       "users": [
         "fedottt"
       ]
@@ -310,32 +294,28 @@
       ],
       "columns": [
         {
-          "lebel": "to do",
+          "label": "to do",
           "cards": [
             0
           ]
         },
         {
-          "lebel": "done",
+          "label": "done",
           "cards": []
         },
         {
-          "lebel": "in work",
+          "label": "in work",
           "cards": [
             2,
             1
           ]
         }
       ],
-      "tables": {
-        "main": {
-          "columns": [
-            0,
-            1,
-            2
-          ]
-        }
-      },
+      "table": [
+        0,
+        1,
+        2
+      ],
       "users": [
         "fedottt"
       ]
@@ -378,32 +358,28 @@
       ],
       "columns": [
         {
-          "lebel": "to do",
+          "label": "to do",
           "cards": [
             0
           ]
         },
         {
-          "lebel": "done",
+          "label": "done",
           "cards": []
         },
         {
-          "lebel": "in work",
+          "label": "in work",
           "cards": [
             2,
             1
           ]
         }
       ],
-      "tables": {
-        "main": {
-          "columns": [
-            0,
-            1,
-            2
-          ]
-        }
-      },
+      "table": [
+        0,
+        1,
+        2
+      ],
       "users": [
         "fedottt"
       ]
@@ -446,32 +422,27 @@
       ],
       "columns": [
         {
-          "lebel": "to do",
+          "label": "to do",
           "cards": [
-            0
-          ]
-        },
-        {
-          "lebel": "done",
-          "cards": []
-        },
-        {
-          "lebel": "in work",
-          "cards": [
-            2,
-            1
-          ]
-        }
-      ],
-      "tables": {
-        "main": {
-          "columns": [
             0,
             1,
             2
           ]
+        },
+        {
+          "label": "done",
+          "cards": []
+        },
+        {
+          "label": "in work",
+          "cards": []
         }
-      },
+      ],
+      "table": [
+        0,
+        1,
+        2
+      ],
       "users": [
         "fedottt"
       ]
@@ -514,32 +485,28 @@
       ],
       "columns": [
         {
-          "lebel": "to do",
+          "label": "to do",
           "cards": [
             0
           ]
         },
         {
-          "lebel": "done",
+          "label": "done",
           "cards": []
         },
         {
-          "lebel": "in work",
+          "label": "in work",
           "cards": [
             2,
             1
           ]
         }
       ],
-      "tables": {
-        "main": {
-          "columns": [
-            0,
-            1,
-            2
-          ]
-        }
-      },
+      "table": [
+        0,
+        1,
+        2
+      ],
       "users": [
         "fedottt"
       ]
@@ -582,32 +549,28 @@
       ],
       "columns": [
         {
-          "lebel": "to do",
+          "label": "to do",
           "cards": [
             0
           ]
         },
         {
-          "lebel": "done",
+          "label": "done",
           "cards": []
         },
         {
-          "lebel": "in work",
+          "label": "in work",
           "cards": [
             2,
             1
           ]
         }
       ],
-      "tables": {
-        "main": {
-          "columns": [
-            0,
-            1,
-            2
-          ]
-        }
-      },
+      "table": [
+        0,
+        1,
+        2
+      ],
       "users": [
         "fedottt"
       ]

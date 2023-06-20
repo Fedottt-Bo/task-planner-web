@@ -23,9 +23,9 @@ const default_sheet = (name) => {return {
     {label: "no care", style: "green", text: "sample easy task"},
   ],
   columns: [
-    {lebel: "to do", cards: [0]},
-    {lebel: "done", cards: []},
-    {lebel: "in work", cards: [2, 1]},
+    {label: "to do", cards: [0]},
+    {label: "done", cards: []},
+    {label: "in work", cards: [2, 1]},
   ],
   tables: {
     "main": {
@@ -239,13 +239,42 @@ const default_sheet = (name) => {return {
       
       /* Validate indices */
       if (ind >= sheet.columns[column].cards.length) return false;
-      if (new_ind >= sheet.columns[new_column].cards.length - (column === new_column)) return false;
+      if (new_ind > sheet.columns[new_column].cards.length - (column === new_column)) return false;
 
       /* Permute */
-      const [removed] = sheet.columns[column].cards.splice(ind, 1);
-      sheet.columns[new_column].cards.splice(new_ind, 0, removed);
-
+      sheet.columns[new_column].cards.splice(new_ind, 0, ...sheet.columns[column].cards.splice(ind, 1));
       db.was_change = true;
+
+      return true;
+    },
+    move_column: function(sheet, ind, new_ind) {
+      sheet = db.data.sheets[sheet];
+
+      /* Validate object */
+      if (sheet === undefined) return false;
+
+      /* Validate indices */
+      if (ind >= sheet.table.length || new_ind >= sheet.table.length) return false;
+
+      /* Permute */
+      sheet.table.splice(ind, 0, ...sheet.table.splice(new_ind, 1));
+      db.was_change = true;
+
+      return true;
+    },
+    add_card: function(sheet, column, label, style, text) {
+      sheet = db.data.sheets[sheet];
+
+      /* Validate object */
+      if (sheet === undefined) return false;
+      if (sheet.columns[column] === undefined) return false;
+      if (sheet.styles[style] === undefined) return false;
+
+      /* Add card */
+      sheet.cards.push({label, style, text});
+
+      /* Add to column */
+      sheet.columns[column].cards.push(sheet.cards.length - 1);
 
       return true;
     }
@@ -390,27 +419,49 @@ const default_sheet = (name) => {return {
       socket.disconnect(true);
       return;
     }
-    
-    socket.emit('sheet', db.data.sheets[socket.path]);
+
+    socket.sendSheet = () => socket.emit('sheet', db.data.sheets[socket.path]);
+    socket.sendSheet();
 
     if (socket.recovered) {
     } else {
       socket.join(socket.path);
       socket
-        .on('move card inside', (column, ind, new_ind, callback) => {
+        .on('move card inside', (column, ind, new_ind) => {
           if (sheet_modify.move_card(socket.path, column, column, ind, new_ind)) {
+            console.log(`moved card in ${socket.path}: from (${column}; ${ind}) to (${column}; ${new_ind})`);
+
             socket.to(socket.path).emit('move card inside', column, ind, new_ind);
-            callback(true);
+            
           } else {
-            callback(false);
+            socket.sendSheet();
           }
         })
-        .on('move card between', (column, new_column, ind, new_ind, callback) => {
-          if (move_card(socket.path, column, new_column, ind, new_ind)) {
+        .on('move card between', (column, new_column, ind, new_ind) => {
+          if (sheet_modify.move_card(socket.path, column, new_column, ind, new_ind)) {
+            console.log(`moved card in ${socket.path}: from (${column}; ${ind}) to (${new_column}; ${new_ind})`);
+
             socket.to(socket.path).emit('move card between', column, new_column, ind, new_ind);
-            callback(true);
           } else {
-            callback(false);
+            socket.sendSheet();
+          }
+        })
+        .on('move column', (ind, new_ind) => {
+          if (sheet_modify.move_column(socket.path, ind, new_ind)) {
+            console.log(`moved column in ${socket.path}: from ${ind} to ${new_ind}`);
+
+            socket.to(socket.path).emit('move column', ind, new_ind);
+          } else {
+            socket.sendSheet();
+          }
+        })
+        .on('add card', (column, label, style, text) => {
+          if (sheet_modify.add_card(socket.path, column, label, style, text)) {
+            console.log(`added card in ${socket.path}: to ${column} named ${label}, styled ${style} and with length ${text.length}`);
+
+            socket.to(socket.path).emit('add card', column, label, style, text);
+          } else {
+            socket.sendSheet();
           }
         })
     }
