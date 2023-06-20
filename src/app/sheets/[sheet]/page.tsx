@@ -1,6 +1,7 @@
 'use client'
 
 import Cookies from 'js-cookie';
+import { randomBytes } from 'crypto';
 import { Socket, io } from 'socket.io-client';
 import { redirect, useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
@@ -25,12 +26,12 @@ export default function Home({ params }: { params: { sheet: string } }) {
     if (column === new_column && ind === new_ind) return true;
 
     /* Validate indices */
-    if (ind >= sheet.columns[column].cards.length) return false;
-    if (new_ind > sheet.columns[new_column].cards.length - Number(column === new_column)) return false;
+    if (ind >= sheet.table[column].cards.length) return false;
+    if (new_ind > sheet.table[new_column].cards.length - Number(column === new_column)) return false;
 
     /* Permute */
     const new_sheet = {...sheet};
-    new_sheet.columns[new_column].cards.splice(new_ind, 0, ...new_sheet.columns[column].cards.splice(ind, 1));
+    new_sheet.table[new_column].cards.splice(new_ind, 0, ...new_sheet.table[column].cards.splice(ind, 1));
 
     if (sendMessage) {
       if (column === new_column) socket.emit('move card inside', column, ind, new_ind)
@@ -81,7 +82,7 @@ export default function Home({ params }: { params: { sheet: string } }) {
       }
       break;
     }
-  }, [moveCard, Router])
+  }, [moveCard, moveColumn, Router])
 
   useEffect(() => {
     /* Validate access */
@@ -150,7 +151,7 @@ export default function Home({ params }: { params: { sheet: string } }) {
                 >
                   {sheet.table.map((val, ind) => {
                     return (
-                      <Column key={'column-' + val} ind={ind} column_ind={val}/>
+                      <Column key={'column-' + (val.id ? val.id : (val.id = randomBytes(4).readUInt32BE()))} ind={ind}/>
                     )
                   })}
                   {provided.placeholder}

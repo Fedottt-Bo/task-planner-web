@@ -9,13 +9,13 @@ import styles from './page.module.css';
 import { RichEditor, SimpleEditor } from './text_editor';
 import { context } from './context';
 
-export function Card(props : {ind: number, card_ind: number}) {
+export function Card(props : {ind: number, column: number}) {
   const {sheetObj} = useContext(context);
 
-  const card = sheetObj.cards[props.card_ind];
-  
+  const card = sheetObj.table[props.column].cards[props.ind];
+
   return (
-    <Draggable draggableId={'draggable-' + props.card_ind} index={props.ind}>
+    <Draggable draggableId={'card-' + card.id} index={props.ind}>
       {(provided) => (
         <div
           ref={provided.innerRef}
@@ -36,7 +36,8 @@ export function Card(props : {ind: number, card_ind: number}) {
   )
 }
 
-export function AddCard(props: {ind: number, column_ind: number}) {
+
+export function AddCard(props: {ind: number}) {
   const {sheetObj} = useContext(context);
 
   const labelEditor = useRef<any>(null);

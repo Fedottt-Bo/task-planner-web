@@ -235,14 +235,14 @@ const default_sheet = (name) => {return {
       
       /* Validate objects */
       if (sheet === undefined) return false;
-      if (sheet.columns[column] === undefined || sheet.columns[new_column] === undefined) return false;
+      if (sheet.table[column] === undefined || sheet.table[new_column] === undefined) return false;
       
       /* Validate indices */
-      if (ind >= sheet.columns[column].cards.length) return false;
-      if (new_ind > sheet.columns[new_column].cards.length - (column === new_column)) return false;
+      if (ind >= sheet.table[column].cards.length) return false;
+      if (new_ind > sheet.table[new_column].cards.length - (column === new_column)) return false;
 
       /* Permute */
-      sheet.columns[new_column].cards.splice(new_ind, 0, ...sheet.columns[column].cards.splice(ind, 1));
+      sheet.table[new_column].cards.splice(new_ind, 0, ...sheet.table[column].cards.splice(ind, 1));
       db.was_change = true;
 
       return true;
@@ -271,10 +271,43 @@ const default_sheet = (name) => {return {
       if (sheet.styles[style] === undefined) return false;
 
       /* Add card */
-      sheet.cards.push({label, style, text});
+      sheet.table[column].cards.push({label, style, text});
+      db.was_change = true;
 
-      /* Add to column */
-      sheet.columns[column].cards.push(sheet.cards.length - 1);
+      return true;
+    },
+    delete_card: function(sheet, column, ind) {
+      sheet = db.data.sheets[sheet];
+
+      /* Validate object */
+      if (sheet === undefined) return false;
+      if (sheet.columns[column] === undefined) return false;
+      
+      /* Validate index */
+      if (ind >= sheet.columns[column].cards.length) return false;
+
+      /* Remove card */
+      sheet.table[column].cards.splice(ind, 1);
+      db.was_change = true;
+
+      return true;
+    },
+    edit_card: function(sheet, column, ind, label, style, text) {
+      sheet = db.data.sheets[sheet];
+
+      /* Validate object */
+      if (sheet === undefined) return false;
+      if (sheet.columns[column] === undefined) return false;
+      if (sheet.styles[style] === undefined) return false;
+
+      /* Validate card */
+      const card = sheet.table[column].cards[ind];
+      if (card === undefined) return false;
+
+      card.label = label;
+      card.style = style;
+      card.text = text;
+      db.was_change = true;
 
       return true;
     }

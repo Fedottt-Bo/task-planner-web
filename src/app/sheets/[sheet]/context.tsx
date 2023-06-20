@@ -4,9 +4,7 @@ import { Socket, io } from 'socket.io-client';
 export type SheetType = {
   name: string,
   styles: {[index: string]: {bgColor: string, labelColor: string, textColor: string}}
-  cards: {label: string, style: string, text: string}[]
-  columns: {label: string, cards: Array<number>}[]
-  table: Array<number>
+  table: Array<{label: string, cards: Array<{label: string, style: string, text: string, id?: number}>, id?: number}>
 }
 
 export type ContextType = {

@@ -1,5 +1,6 @@
 'use client'
 
+import { randomBytes } from 'crypto';
 import React, { useContext } from 'react';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
@@ -8,12 +9,14 @@ import { Card, AddCard } from './card';
 
 import styles from './page.module.css';
 
-export default function Column(props : {ind: number, column_ind: number}) {
+export default function Column(props : {ind: number}) {
   const {sheetObj} = useContext(context);
+
+  const column = sheetObj.table[props.ind];
   
   return (
     <Draggable
-      draggableId={props.column_ind.toString()}
+      draggableId={'column-' + column.id}
       index={props.ind}
     >
       {(provided) => (
@@ -24,10 +27,10 @@ export default function Column(props : {ind: number, column_ind: number}) {
           ref={provided.innerRef}
         >
           <div className={styles.label}>
-            {sheetObj.columns[props.column_ind].label}
+            {sheetObj.table[props.ind].label}
           </div>
           <Droppable
-            droppableId={props.column_ind.toString()}
+            droppableId={props.ind.toString()}
             type='CARDS'
           >
             {(provided, snapshot) => (          
@@ -36,8 +39,8 @@ export default function Column(props : {ind: number, column_ind: number}) {
                 ref={provided.innerRef}
                 className={styles.cards}
               >
-                {sheetObj.columns[props.column_ind].cards.map((val, ind) => (
-                  <Card key={'card-' + val} ind={ind} card_ind={val}/>
+                {column.cards.map((val, ind, arr) => (
+                  <Card key={'card-' + (val.id ? val.id : (arr[ind].id = randomBytes(4).readUInt32BE(0)))} ind={ind} column={props.ind}/>
                 ))}
                 {provided.placeholder}
                 <AddCard {...props}/>

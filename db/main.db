@@ -1,4 +1,21 @@
 {
+  "users": {
+    "fedottt": {
+      "username": "fedottt",
+      "password": "$2b$10$31g8oHdptmywcLN6RSaOaOEnpOYdtWMeyNVXTNTH3zRnLHkE9mGZy",
+      "sheets": [
+        "sample-001",
+        "sample-002",
+        "sample-003",
+        "sample-004",
+        "cgsg-forever-table",
+        "school_30",
+        "OGE",
+        "EGE",
+        "other-stuff"
+      ]
+    }
+  },
   "sheets": {
     "sample-001": {
       "name": "sample-001",
@@ -19,49 +36,39 @@
           "textColor": "black"
         }
       },
-      "cards": [
-        {
-          "label": "normal",
-          "style": "yellow",
-          "text": "sample normal task"
-        },
-        {
-          "label": "important",
-          "style": "red",
-          "text": "sample important task"
-        },
-        {
-          "label": "no care",
-          "style": "green",
-          "text": "sample easy task"
-        }
+      "users": [
+        "fedottt"
       ],
-      "columns": [
+      "table": [
         {
-          "label": "to do",
+          "label": "in work",
           "cards": [
-            0
+            {
+              "label": "no care",
+              "style": "green",
+              "text": "sample easy task"
+            }
           ]
         },
         {
           "label": "done",
           "cards": [
-            1,
-            2
+            {
+              "label": "normal",
+              "style": "yellow",
+              "text": "sample normal task"
+            },
+            {
+              "label": "important",
+              "style": "red",
+              "text": "sample important task"
+            }
           ]
         },
         {
-          "label": "in work",
+          "label": "to do",
           "cards": []
         }
-      ],
-      "table": [
-        2,
-        1,
-        0
-      ],
-      "users": [
-        "fedottt"
       ]
     },
     "sample-002": {
@@ -83,28 +90,18 @@
           "textColor": "black"
         }
       },
-      "cards": [
-        {
-          "label": "nomral",
-          "style": "yellow",
-          "text": "sample normal task"
-        },
-        {
-          "label": "important",
-          "style": "red",
-          "text": "sample important task"
-        },
-        {
-          "label": "no care",
-          "style": "green",
-          "text": "sample easy task"
-        }
+      "users": [
+        "fedottt"
       ],
-      "columns": [
+      "table": [
         {
           "label": "to do",
           "cards": [
-            0
+            {
+              "label": "nomral",
+              "style": "yellow",
+              "text": "sample normal task"
+            }
           ]
         },
         {
@@ -114,18 +111,18 @@
         {
           "label": "in work",
           "cards": [
-            2,
-            1
+            {
+              "label": "no care",
+              "style": "green",
+              "text": "sample easy task"
+            },
+            {
+              "label": "important",
+              "style": "red",
+              "text": "sample important task"
+            }
           ]
         }
-      ],
-      "table": [
-        0,
-        1,
-        2
-      ],
-      "users": [
-        "fedottt"
       ]
     },
     "sample-003": {
@@ -147,28 +144,18 @@
           "textColor": "black"
         }
       },
-      "cards": [
-        {
-          "label": "nomral",
-          "style": "yellow",
-          "text": "sample normal task"
-        },
-        {
-          "label": "important",
-          "style": "red",
-          "text": "sample important task"
-        },
-        {
-          "label": "no care",
-          "style": "green",
-          "text": "sample easy task"
-        }
+      "users": [
+        "fedottt"
       ],
-      "columns": [
+      "table": [
         {
           "label": "to do",
           "cards": [
-            0
+            {
+              "label": "nomral",
+              "style": "yellow",
+              "text": "sample normal task"
+            }
           ]
         },
         {
@@ -178,18 +165,18 @@
         {
           "label": "in work",
           "cards": [
-            2,
-            1
+            {
+              "label": "no care",
+              "style": "green",
+              "text": "sample easy task"
+            },
+            {
+              "label": "important",
+              "style": "red",
+              "text": "sample important task"
+            }
           ]
         }
-      ],
-      "table": [
-        0,
-        1,
-        2
-      ],
-      "users": [
-        "fedottt"
       ]
     },
     "sample-004": {
@@ -211,28 +198,18 @@
           "textColor": "black"
         }
       },
-      "cards": [
-        {
-          "label": "nomral",
-          "style": "yellow",
-          "text": "sample normal task"
-        },
-        {
-          "label": "important",
-          "style": "red",
-          "text": "sample important task"
-        },
-        {
-          "label": "no care",
-          "style": "green",
-          "text": "sample easy task"
-        }
+      "users": [
+        "fedottt"
       ],
-      "columns": [
+      "table": [
         {
           "label": "to do",
           "cards": [
-            0
+            {
+              "label": "nomral",
+              "style": "yellow",
+              "text": "sample normal task"
+            }
           ]
         },
         {
@@ -242,18 +219,18 @@
         {
           "label": "in work",
           "cards": [
-            2,
-            1
+            {
+              "label": "no care",
+              "style": "green",
+              "text": "sample easy task"
+            },
+            {
+              "label": "important",
+              "style": "red",
+              "text": "sample important task"
+            }
           ]
         }
-      ],
-      "table": [
-        0,
-        1,
-        2
-      ],
-      "users": [
-        "fedottt"
       ]
     },
     "cgsg-forever-table": {
@@ -275,28 +252,18 @@
           "textColor": "black"
         }
       },
-      "cards": [
-        {
-          "label": "nomral",
-          "style": "yellow",
-          "text": "sample normal task"
-        },
-        {
-          "label": "important",
-          "style": "red",
-          "text": "sample important task"
-        },
-        {
-          "label": "no care",
-          "style": "green",
-          "text": "sample easy task"
-        }
+      "users": [
+        "fedottt"
       ],
-      "columns": [
+      "table": [
         {
           "label": "to do",
           "cards": [
-            0
+            {
+              "label": "nomral",
+              "style": "yellow",
+              "text": "sample normal task"
+            }
           ]
         },
         {
@@ -306,18 +273,18 @@
         {
           "label": "in work",
           "cards": [
-            2,
-            1
+            {
+              "label": "no care",
+              "style": "green",
+              "text": "sample easy task"
+            },
+            {
+              "label": "important",
+              "style": "red",
+              "text": "sample important task"
+            }
           ]
         }
-      ],
-      "table": [
-        0,
-        1,
-        2
-      ],
-      "users": [
-        "fedottt"
       ]
     },
     "school_30": {
@@ -339,28 +306,18 @@
           "textColor": "black"
         }
       },
-      "cards": [
-        {
-          "label": "nomral",
-          "style": "yellow",
-          "text": "sample normal task"
-        },
-        {
-          "label": "important",
-          "style": "red",
-          "text": "sample important task"
-        },
-        {
-          "label": "no care",
-          "style": "green",
-          "text": "sample easy task"
-        }
+      "users": [
+        "fedottt"
       ],
-      "columns": [
+      "table": [
         {
           "label": "to do",
           "cards": [
-            0
+            {
+              "label": "nomral",
+              "style": "yellow",
+              "text": "sample normal task"
+            }
           ]
         },
         {
@@ -370,18 +327,18 @@
         {
           "label": "in work",
           "cards": [
-            2,
-            1
+            {
+              "label": "no care",
+              "style": "green",
+              "text": "sample easy task"
+            },
+            {
+              "label": "important",
+              "style": "red",
+              "text": "sample important task"
+            }
           ]
         }
-      ],
-      "table": [
-        0,
-        1,
-        2
-      ],
-      "users": [
-        "fedottt"
       ]
     },
     "OGE": {
@@ -403,30 +360,28 @@
           "textColor": "black"
         }
       },
-      "cards": [
-        {
-          "label": "nomral",
-          "style": "yellow",
-          "text": "sample normal task"
-        },
-        {
-          "label": "important",
-          "style": "red",
-          "text": "sample important task"
-        },
-        {
-          "label": "no care",
-          "style": "green",
-          "text": "sample easy task"
-        }
+      "users": [
+        "fedottt"
       ],
-      "columns": [
+      "table": [
         {
           "label": "to do",
           "cards": [
-            0,
-            1,
-            2
+            {
+              "label": "nomral",
+              "style": "yellow",
+              "text": "sample normal task"
+            },
+            {
+              "label": "important",
+              "style": "red",
+              "text": "sample important task"
+            },
+            {
+              "label": "no care",
+              "style": "green",
+              "text": "sample easy task"
+            }
           ]
         },
         {
@@ -437,14 +392,6 @@
           "label": "in work",
           "cards": []
         }
-      ],
-      "table": [
-        0,
-        1,
-        2
-      ],
-      "users": [
-        "fedottt"
       ]
     },
     "EGE": {
@@ -466,28 +413,18 @@
           "textColor": "black"
         }
       },
-      "cards": [
-        {
-          "label": "nomral",
-          "style": "yellow",
-          "text": "sample normal task"
-        },
-        {
-          "label": "important",
-          "style": "red",
-          "text": "sample important task"
-        },
-        {
-          "label": "no care",
-          "style": "green",
-          "text": "sample easy task"
-        }
+      "users": [
+        "fedottt"
       ],
-      "columns": [
+      "table": [
         {
           "label": "to do",
           "cards": [
-            0
+            {
+              "label": "nomral",
+              "style": "yellow",
+              "text": "sample normal task"
+            }
           ]
         },
         {
@@ -497,18 +434,18 @@
         {
           "label": "in work",
           "cards": [
-            2,
-            1
+            {
+              "label": "no care",
+              "style": "green",
+              "text": "sample easy task"
+            },
+            {
+              "label": "important",
+              "style": "red",
+              "text": "sample important task"
+            }
           ]
         }
-      ],
-      "table": [
-        0,
-        1,
-        2
-      ],
-      "users": [
-        "fedottt"
       ]
     },
     "other-stuff": {
@@ -530,28 +467,18 @@
           "textColor": "black"
         }
       },
-      "cards": [
-        {
-          "label": "nomral",
-          "style": "yellow",
-          "text": "sample normal task"
-        },
-        {
-          "label": "important",
-          "style": "red",
-          "text": "sample important task"
-        },
-        {
-          "label": "no care",
-          "style": "green",
-          "text": "sample easy task"
-        }
+      "users": [
+        "fedottt"
       ],
-      "columns": [
+      "table": [
         {
           "label": "to do",
           "cards": [
-            0
+            {
+              "label": "nomral",
+              "style": "yellow",
+              "text": "sample normal task"
+            }
           ]
         },
         {
@@ -561,35 +488,18 @@
         {
           "label": "in work",
           "cards": [
-            2,
-            1
+            {
+              "label": "no care",
+              "style": "green",
+              "text": "sample easy task"
+            },
+            {
+              "label": "important",
+              "style": "red",
+              "text": "sample important task"
+            }
           ]
         }
-      ],
-      "table": [
-        0,
-        1,
-        2
-      ],
-      "users": [
-        "fedottt"
-      ]
-    }
-  },
-  "users": {
-    "fedottt": {
-      "username": "fedottt",
-      "password": "$2b$10$31g8oHdptmywcLN6RSaOaOEnpOYdtWMeyNVXTNTH3zRnLHkE9mGZy",
-      "sheets": [
-        "sample-001",
-        "sample-002",
-        "sample-003",
-        "sample-004",
-        "cgsg-forever-table",
-        "school_30",
-        "OGE",
-        "EGE",
-        "other-stuff"
       ]
     }
   }
