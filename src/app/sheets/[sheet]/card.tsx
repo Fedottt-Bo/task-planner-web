@@ -1,15 +1,17 @@
 'use client'
 
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Draggable } from 'react-beautiful-dnd';
 import { Popup } from 'reactjs-popup';
 import { DropdownList } from 'react-widgets';
+import HTMLReactParser from 'html-react-parser'
 
 import "react-widgets/styles.css";
 import styles from './page.module.css';
+import text_styles from './text_editor.css';
 
-import { RichEditor, SimpleEditor } from './text_editor';
+import { useTextEditor, TextEditor, useRichEditor, RichEditor } from './text_editor';
 import { context } from './context';
 
 export function Card(props : {ind: number, column: number}) {
@@ -30,8 +32,8 @@ export function Card(props : {ind: number, column: number}) {
           <span>
             {card.style}
           </span>
-          <div>
-            {card.text}
+          <div className={text_styles.formattedText}>
+            {HTMLReactParser(card.text)}
           </div>
         </div>
       )}
@@ -44,15 +46,15 @@ export function AddCard(props: {ind: number}) {
   const {sheetObj, addCard} = useContext(context);
   const Router = useRouter();
 
-  const labelEditor = useRef<any>(null);
-  const textEditor = useRef<any>(null);
-  const [style, setStyle] = useState<string>("");
+  const labelEditor = useTextEditor({placeholder: ""});
+  const textEditor = useRichEditor({placeholder: ""});
+  const [style, setStyle] = useState<string>(Object.keys(sheetObj.styles)[0]);
 
   function onClick() {
-    const label = labelEditor.current.state.editorState.getCurrentContent().getPlainText('\u0001');
-    const text = textEditor.current.state.editorState.getCurrentContent().getPlainText('\u0001');
+    const label = labelEditor?.getText();
+    const text = textEditor?.getHTML();
 
-    if (!addCard(props.ind, {label, style, text})) Router.refresh();
+    if (label && text && !addCard(props.ind, {label, style, text})) Router.refresh();
   }
 
   return (
@@ -69,18 +71,37 @@ export function AddCard(props: {ind: number}) {
       modal
       nested
     >
-      <div>
-        <span>Add card to column №{props.ind}</span>
-        <SimpleEditor placeholder="label" ref={labelEditor}/>
-        <DropdownList
-          data={Object.entries(sheetObj.styles).map(val => {return {name: val[0]}})}
-          dataKey="name"
-          textField="name"
-          defaultValue={Object.keys(sheetObj.styles)[0]}
-          defaultOpen={false}
-          onChange={(obj: {name: string}) => setStyle(obj.name)}
-        />
-        <SimpleEditor placeholder="text" ref={textEditor}/>
+      <div className={styles.cardAddPopup}>
+        <div className={styles.inputField}>
+          <span>Add card to column &apos;{sheetObj.table[props.ind].label}&apos;</span>
+        </div>
+        <div className={styles.inputField}>
+          <label>Card label:</label>
+          <TextEditor editor={labelEditor}/>
+        </div>
+        <div
+          className={styles.inputField}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center"
+          }}
+        >
+          <label style={{display: "flexbox", verticalAlign: "center", height: "max-content"}}>Style:</label>
+          <DropdownList
+            data={Object.entries(sheetObj.styles).map(val => {return {name: val[0]}})}
+            dataKey="name"
+            textField="name"
+            defaultValue={style}
+            defaultOpen={false}
+            onChange={(obj: {name: string}) => setStyle(obj.name)}
+            style={{display: "flexbox"}}
+          />
+        </div>
+        <div className={styles.inputField}>
+          <label>Card text:</label>
+          <RichEditor editor={textEditor}/>
+        </div>
         <button onClick={onClick}>Confirm</button>
       </div>
     </Popup>

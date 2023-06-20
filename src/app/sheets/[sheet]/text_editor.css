@@ -1,63 +1,114 @@
-.RichEditor-root {
-  background: #fff;
-  border: 1px solid #ddd;
-  font-family: 'Georgia', serif;
-  font-size: 14px;
-  padding: 15px;
+.ProseMirror, .formattedText {
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+  }
+
+  code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
+
+  pre {
+    background: #0D0D0D;
+    color: #FFF;
+    font-family: 'JetBrainsMono', monospace;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+
+    code {
+      color: inherit;
+      padding: 0;
+      background: none;
+      font-size: 0.8rem;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0D0D0D, 0.1);
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid rgba(#0D0D0D, 0.1);
+    margin: 2rem 0;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
 }
 
-.RichEditor-editor {
-  border-top: 1px solid #ddd;
-  cursor: text;
-  font-size: 16px;
-  margin-top: 10px;
+.textEditor {
+  background: #FFF;
 }
 
-.RichEditor-editor .public-DraftEditorPlaceholder-root,
-.RichEditor-editor .public-DraftEditor-content {
-  margin: 0 -15px -15px;
-  padding: 15px;
+.textEditorToolBar {
+  height: fit-content;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.RichEditor-editor .public-DraftEditor-content {
-  min-height: 100px;
+.textEditorToolBar .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: fit-content;
+  width: 100%;
 }
 
-.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
-  display: none;
-}
-
-.RichEditor-editor .RichEditor-blockquote {
-  border-left: 5px solid #eee;
-  color: #666;
-  font-family: 'Hoefler Text', 'Georgia', serif;
-  font-style: italic;
-  margin: 16px 0;
-  padding: 10px 20px;
-}
-
-.RichEditor-editor .public-DraftStyleDefault-pre {
-  background-color: rgba(0, 0, 0, 0.05);
-  font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-  font-size: 16px;
-  padding: 20px;
-}
-
-.RichEditor-controls {
-  font-family: 'Helvetica', sans-serif;
-  font-size: 14px;
-  margin-bottom: 5px;
-  user-select: none;
-}
-
-.RichEditor-styleButton {
-  color: #999;
-  cursor: pointer;
-  margin-right: 16px;
-  padding: 2px 0;
+.textEditorToolBar button {
   display: inline-block;
+  padding: 0.125rem 0.25rem;
+  margin: 0 0.08rem;
+
+  border: none;
+  border-radius: 0.125rem;
+
+  text-decoration: none;
+  background: rgba(230, 230, 255, 0.47);
+  color: rgb(0, 0, 0);
+  font-family: sans-serif;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
 }
 
-.RichEditor-activeButton {
-  color: #5890ff;
+.textEditorToolBar button:hover,
+.textEditorToolBar button:focus {
+  background: rgba(102, 102, 255, 0.47);
+}
+
+.textEditorToolBar button:focus {
+  outline: 1px solid #fff;
+  outline-offset: -4px;
+}
+
+.textEditorToolBar button:active,
+.textEditorToolBar .is-active {
+  background: rgba(102, 102, 180, 0.666);
+  transform: scale(0.90);
 }

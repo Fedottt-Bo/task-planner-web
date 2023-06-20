@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import { randomBytes } from 'crypto';
 import { Socket, io } from 'socket.io-client';
 import { redirect, useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useState, useEffect, useCallback } from 'react';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 
@@ -151,6 +153,20 @@ export default function Home({ params }: { params: { sheet: string } }) {
   } else {
     return (
       <main className={styles.sheet}>
+        <div className={styles.description}>
+          {[...Array(8)].map((val, ind) => (
+            <Image
+              src="/CGSG-Logo.svg"
+              alt="CGSG logo"
+              height={66}
+              width={102}
+              className={styles.element}
+              key={ind}
+              priority
+            />
+            )
+          )}
+        </div>
         <context.Provider value={{sheetName: params.sheet, sheetObj: sheet, addCard}}>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable

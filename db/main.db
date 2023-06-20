@@ -47,27 +47,27 @@
               "label": "no care",
               "style": "green",
               "text": "sample easy task"
+            },
+            {
+              "label": "normal",
+              "style": "yellow",
+              "text": "sample normal task"
             }
           ]
         },
         {
           "label": "done",
+          "cards": []
+        },
+        {
+          "label": "to do",
           "cards": [
-            {
-              "label": "normal",
-              "style": "yellow",
-              "text": "sample normal task"
-            },
             {
               "label": "important",
               "style": "red",
               "text": "sample important task"
             }
           ]
-        },
-        {
-          "label": "to do",
-          "cards": []
         }
       ]
     },
@@ -95,31 +95,62 @@
       ],
       "table": [
         {
-          "label": "to do",
+          "label": "done",
           "cards": [
             {
-              "label": "nomral",
-              "style": "yellow",
-              "text": "sample normal task"
-            }
-          ]
-        },
-        {
-          "label": "done",
-          "cards": []
-        },
-        {
-          "label": "in work",
-          "cards": [
+              "label": "Test formatting",
+              "style": "red",
+              "text": "<h3>Handle</h3><p><em>italic</em><s>strike</s><strong>bold<em><s>all</s></em></strong></p>"
+            },
             {
               "label": "no care",
               "style": "green",
               "text": "sample easy task"
             },
             {
+              "label": "nomral",
+              "style": "yellow",
+              "text": "sample normal task"
+            },
+            {
+              "label": "New feature",
+              "style": "yellow",
+              "text": "Test card adding"
+            }
+          ]
+        },
+        {
+          "label": "to do",
+          "cards": [
+            {
+              "label": "jjjjjjjj",
+              "style": "yellow",
+              "text": "<h2><em>bnnnnnnnnnn</em></h2>"
+            },
+            {
+              "label": "a",
+              "style": "yellow",
+              "text": "b"
+            }
+          ]
+        },
+        {
+          "label": "in work",
+          "cards": [
+            {
               "label": "important",
               "style": "red",
               "text": "sample important task"
+            },
+            {
+              "label": "a",
+              "style": "yellow",
+              "text": "b"
+            },
+            {
+              "label": "a",
+              "style": "yellow",
+              "text": "b"
             }
           ]
         }
