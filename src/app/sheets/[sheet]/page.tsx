@@ -4,10 +4,9 @@ import Cookies from 'js-cookie';
 import { randomBytes } from 'crypto';
 import { Socket, io } from 'socket.io-client';
 import { redirect, useRouter } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useState, useEffect, useCallback } from 'react';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
+import { Popup } from 'reactjs-popup';
 
 import styles from './page.module.css';
 
@@ -57,7 +56,7 @@ export default function Home({ params }: { params: { sheet: string } }) {
 
     /* Permute */
     const new_sheet = {...sheet};
-    new_sheet.table.splice(ind, 0, ...new_sheet.table.splice(new_ind, 1));
+    new_sheet.table.splice(new_ind, 0, ...new_sheet.table.splice(ind, 1));
 
     if (sendMessage) socket.emit('move column', ind, new_ind)
 
@@ -144,6 +143,50 @@ export default function Home({ params }: { params: { sheet: string } }) {
       })
   }, [socket, Router, moveCard, moveColumn, addCard]);
 
+  const StylesManage = () => {
+    return (
+      <Popup
+        trigger={<button className={styles.element}>Manage styles</button>}
+        modal
+        nested
+      >
+        <div>Yeah</div>
+      </Popup>
+    )
+  }
+
+  const ColumnAdding = () => {
+    return (
+      <Popup
+        trigger={<button className={styles.element}>Add column</button>}
+        modal
+        nested
+      >
+        <div>Yeah</div>
+      </Popup>
+    )
+  }
+
+  const AccessManage = () => {
+    return (
+      <Popup
+        trigger={<button className={styles.element}>Manage access</button>}
+        {...{
+          overlayStyle: {
+            background: `radial-gradient(ellipse at top, rgba(200, 200, 255, 0.13) 0%, transparent 75%), radial-gradient(ellipse at bottom, rgba(130, 200, 130, 0.18) 0%, transparent 75%)`,
+            animation: "cardAddPopupOpenAnim 300ms cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards"
+          }
+        }}
+        modal
+        nested
+      >
+        <div>
+          
+        </div>
+      </Popup>
+    )
+  }
+  
   if (isLoading) {
     return (
       <main className={styles.sheet}>
@@ -154,18 +197,9 @@ export default function Home({ params }: { params: { sheet: string } }) {
     return (
       <main className={styles.sheet}>
         <div className={styles.description}>
-          {[...Array(8)].map((val, ind) => (
-            <Image
-              src="/CGSG-Logo.svg"
-              alt="CGSG logo"
-              height={66}
-              width={102}
-              className={styles.element}
-              key={ind}
-              priority
-            />
-            )
-          )}
+          <StylesManage/>
+          <ColumnAdding/>
+          <AccessManage/>
         </div>
         <context.Provider value={{sheetName: params.sheet, sheetObj: sheet, addCard}}>
           <DragDropContext onDragEnd={onDragEnd}>

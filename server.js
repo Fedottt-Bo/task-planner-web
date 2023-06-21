@@ -1,37 +1,31 @@
 const default_sheet = (name) => {return {
   name,
   styles: {
-    "red": {
-      bgColor: "red",
-      labelColor: "white",
-      textColor: "rgb(255, 255, 80)",
-    },
-    "yellow": {
-      bgColor: "yellow",
-      labelColor: "black",
-      textColor: "black",
-    },
-    "green": {
-      bgColor: "green",
+    "default": {
+      bgColor: "rgb(227, 203, 123)",
       labelColor: "black",
       textColor: "black",
     }
   },
-  cards: [
-    {label: "nomral", style: "yellow", text: "sample normal task"},
-    {label: "important", style: "red", text: "sample important task"},
-    {label: "no care", style: "green", text: "sample easy task"},
-  ],
-  columns: [
-    {label: "to do", cards: [0]},
-    {label: "done", cards: []},
-    {label: "in work", cards: [2, 1]},
-  ],
-  tables: {
-    "main": {
-      columns: [0, 1, 2]
-    }
-  }
+  table: [
+    {
+      label: "to do",
+      cards: [
+        {label: "nomral", style: "default", text: "sample normal task"}
+      ]
+    },
+    {
+      label: "done",
+      cards: []
+    },
+    {
+      label: "in work",
+      cards: [
+        {label: "no care", style: "default", text: "sample easy task"},
+        {label: "important", style: "default", text: "sample important task"}
+      ]
+    },
+  ]
 }}
 
 (async () => {
@@ -110,9 +104,9 @@ const default_sheet = (name) => {return {
     if (user !== undefined) {
       return false;
     } else {
-      if (Array.isArray(user.sheets)) user.sheets.forEach(val => {
+      if (Array.isArray(user.sheets)) [...user.sheets].forEach(val => {
           try {
-            
+            deleteUserFromSheet(val, username, true);
           } catch (_err) {}
         })
 
@@ -257,7 +251,7 @@ const default_sheet = (name) => {return {
       if (ind >= sheet.table.length || new_ind >= sheet.table.length) return false;
 
       /* Permute */
-      sheet.table.splice(ind, 0, ...sheet.table.splice(new_ind, 1));
+      sheet.table.splice(new_ind, 0, ...sheet.table.splice(ind, 1));
       db.was_change = true;
 
       return true;

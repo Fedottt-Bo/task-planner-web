@@ -1,4 +1,4 @@
-.ProseMirror, .formattedText {
+.ProseMirror {
   > * + * {
     margin-top: 0.75em;
   }
@@ -111,4 +111,25 @@
 .textEditorToolBar .is-active {
   background: rgba(102, 102, 180, 0.666);
   transform: scale(0.90);
+}
+
+.ProseMirror {
+  max-height: 30vh;
+  overflow-y: auto;
+  word-wrap: break-word;
+  max-width: 75vw;
+}
+
+.ProseMirror::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.ProseMirror::-webkit-scrollbar:vertical {
+  width: 8px;
+}
+
+.ProseMirror::-webkit-scrollbar-thumb:vertical {
+  background-image: linear-gradient(180deg, rgba(255, 200, 220, 0.666) 0%, rgba(200, 200, 255, 0.8) 100%);
+  box-shadow: inset 2px 2px rgba(#fff, 0.5);
+  border-radius: 8px;
 }

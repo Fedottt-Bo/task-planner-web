@@ -3,16 +3,39 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
-  min-height: 100vh;
+  
   height: 100vh;
   max-height: 100vh;
 
-  min-width: 100vw;
   width: 100vw;
   max-width: 100vw;
 
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.sheet::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.sheet::-webkit-scrollbar:vertical {
+  width: 1vmin;
+}
+
+.sheet::-webkit-scrollbar:horizontal {
+  height: 1vmin;
+}
+
+.sheet::-webkit-scrollbar-thumb:vertical {
+  background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%);
+  box-shadow: inset 2px 2px rgba(#fff, 0.5);
+  border-radius: 100px;
+}
+
+.sheet::-webkit-scrollbar-thumb:horizontal {
+  background-image: linear-gradient(90deg, #d0368a 0%, #708ad4 99%);
+  box-shadow: inset 2px 2px rgba(#fff, 0.5);
+  border-radius: 100px;
 }
 
 .description {
@@ -24,7 +47,7 @@
 
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
 
   width: 100%;
@@ -38,9 +61,16 @@
 
 .description .element {
   display: inline-flex;
+  pointer-events: all;
 
-  max-height: 2.4rem;
+  max-height: 2.0rem;
+  border: 0.1rem solid rgba(102, 102, 102, 0.8);
+  border-radius: 0.18rem;
+  padding: 0.04rem;
+  margin: 0.06rem 0.13rem;
   width: fit-content;
+
+  background: linear-gradient(0deg, rgba(122,174,255,1.0) 0%, rgba(178,133,255,0.47) 100%);
 }
 
 .tab {
@@ -68,11 +98,16 @@
     min-height: 2.4rem;
     max-height: 4.8rem;
 
-    margin-bottom: 13px;
+    margin-bottom: 0.1rem;
+  }
+
+  .description .element {
+    background: linear-gradient(0deg, rgba(178,133,255,0.30) 0%, rgba(122,174,255,0.8) 100%);
   }
 
   .tab {
     margin-top: 0;
+    margin-bottom: 4.8rem;
   }
 }
 
@@ -132,9 +167,27 @@
 }
 
 .card .text {
+  margin-top: 0.5rem;
   padding: 0.1rem;
   border: 0.125rem solid rgba(47, 47, 47, 0.47);
   border-radius: 0;
+  word-wrap: break-word;
+  max-height: 8rem;
+  overflow-y: auto;
+}
+
+.card .text::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.card .text::-webkit-scrollbar:vertical {
+  width: 8px;
+}
+
+.card .text::-webkit-scrollbar-thumb:vertical {
+  background-image: linear-gradient(180deg, rgba(255, 200, 220, 0.666) 0%, rgba(200, 200, 255, 0.8) 100%);
+  box-shadow: inset 2px 2px rgba(#fff, 0.5);
+  border-radius: 8px;
 }
 
 .cardAdd {

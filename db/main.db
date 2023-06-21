@@ -4,15 +4,7 @@
       "username": "fedottt",
       "password": "$2b$10$31g8oHdptmywcLN6RSaOaOEnpOYdtWMeyNVXTNTH3zRnLHkE9mGZy",
       "sheets": [
-        "sample-001",
-        "sample-002",
-        "sample-003",
-        "sample-004",
-        "cgsg-forever-table",
-        "school_30",
-        "OGE",
-        "EGE",
-        "other-stuff"
+        "sample-001"
       ]
     }
   },
@@ -20,517 +12,46 @@
     "sample-001": {
       "name": "sample-001",
       "styles": {
-        "red": {
-          "bgColor": "red",
-          "labelColor": "white",
-          "textColor": "rgb(255, 255, 80)"
-        },
-        "yellow": {
-          "bgColor": "yellow",
-          "labelColor": "black",
-          "textColor": "black"
-        },
-        "green": {
-          "bgColor": "green",
+        "default": {
+          "bgColor": "rgb(227, 203, 123)",
           "labelColor": "black",
           "textColor": "black"
         }
       },
-      "users": [
-        "fedottt"
-      ],
-      "table": [
-        {
-          "label": "in work",
-          "cards": [
-            {
-              "label": "no care",
-              "style": "green",
-              "text": "sample easy task"
-            },
-            {
-              "label": "normal",
-              "style": "yellow",
-              "text": "sample normal task"
-            }
-          ]
-        },
-        {
-          "label": "done",
-          "cards": []
-        },
-        {
-          "label": "to do",
-          "cards": [
-            {
-              "label": "important",
-              "style": "red",
-              "text": "sample important task"
-            }
-          ]
-        }
-      ]
-    },
-    "sample-002": {
-      "name": "sample-002",
-      "styles": {
-        "red": {
-          "bgColor": "red",
-          "labelColor": "white",
-          "textColor": "rgb(255, 255, 80)"
-        },
-        "yellow": {
-          "bgColor": "yellow",
-          "labelColor": "black",
-          "textColor": "black"
-        },
-        "green": {
-          "bgColor": "green",
-          "labelColor": "black",
-          "textColor": "black"
-        }
-      },
-      "users": [
-        "fedottt"
-      ],
-      "table": [
-        {
-          "label": "done",
-          "cards": [
-            {
-              "label": "Test formatting",
-              "style": "red",
-              "text": "<h3>Handle</h3><p><em>italic</em><s>strike</s><strong>bold<em><s>all</s></em></strong></p>"
-            },
-            {
-              "label": "no care",
-              "style": "green",
-              "text": "sample easy task"
-            },
-            {
-              "label": "nomral",
-              "style": "yellow",
-              "text": "sample normal task"
-            },
-            {
-              "label": "New feature",
-              "style": "yellow",
-              "text": "Test card adding"
-            }
-          ]
-        },
-        {
-          "label": "to do",
-          "cards": [
-            {
-              "label": "jjjjjjjj",
-              "style": "yellow",
-              "text": "<h2><em>bnnnnnnnnnn</em></h2>"
-            },
-            {
-              "label": "a",
-              "style": "yellow",
-              "text": "b"
-            }
-          ]
-        },
-        {
-          "label": "in work",
-          "cards": [
-            {
-              "label": "important",
-              "style": "red",
-              "text": "sample important task"
-            },
-            {
-              "label": "a",
-              "style": "yellow",
-              "text": "b"
-            },
-            {
-              "label": "a",
-              "style": "yellow",
-              "text": "b"
-            }
-          ]
-        }
-      ]
-    },
-    "sample-003": {
-      "name": "sample-003",
-      "styles": {
-        "red": {
-          "bgColor": "red",
-          "labelColor": "white",
-          "textColor": "rgb(255, 255, 80)"
-        },
-        "yellow": {
-          "bgColor": "yellow",
-          "labelColor": "black",
-          "textColor": "black"
-        },
-        "green": {
-          "bgColor": "green",
-          "labelColor": "black",
-          "textColor": "black"
-        }
-      },
-      "users": [
-        "fedottt"
-      ],
       "table": [
         {
           "label": "to do",
           "cards": [
             {
               "label": "nomral",
-              "style": "yellow",
+              "style": "default",
               "text": "sample normal task"
             }
           ]
         },
         {
           "label": "done",
-          "cards": []
+          "cards": [
+            {
+              "label": "no care",
+              "style": "default",
+              "text": "sample easy task"
+            }
+          ]
         },
         {
           "label": "in work",
           "cards": [
             {
-              "label": "no care",
-              "style": "green",
-              "text": "sample easy task"
-            },
-            {
               "label": "important",
-              "style": "red",
+              "style": "default",
               "text": "sample important task"
             }
           ]
         }
-      ]
-    },
-    "sample-004": {
-      "name": "sample-004",
-      "styles": {
-        "red": {
-          "bgColor": "red",
-          "labelColor": "white",
-          "textColor": "rgb(255, 255, 80)"
-        },
-        "yellow": {
-          "bgColor": "yellow",
-          "labelColor": "black",
-          "textColor": "black"
-        },
-        "green": {
-          "bgColor": "green",
-          "labelColor": "black",
-          "textColor": "black"
-        }
-      },
+      ],
       "users": [
         "fedottt"
-      ],
-      "table": [
-        {
-          "label": "to do",
-          "cards": [
-            {
-              "label": "nomral",
-              "style": "yellow",
-              "text": "sample normal task"
-            }
-          ]
-        },
-        {
-          "label": "done",
-          "cards": []
-        },
-        {
-          "label": "in work",
-          "cards": [
-            {
-              "label": "no care",
-              "style": "green",
-              "text": "sample easy task"
-            },
-            {
-              "label": "important",
-              "style": "red",
-              "text": "sample important task"
-            }
-          ]
-        }
-      ]
-    },
-    "cgsg-forever-table": {
-      "name": "cgsg-forever-table",
-      "styles": {
-        "red": {
-          "bgColor": "red",
-          "labelColor": "white",
-          "textColor": "rgb(255, 255, 80)"
-        },
-        "yellow": {
-          "bgColor": "yellow",
-          "labelColor": "black",
-          "textColor": "black"
-        },
-        "green": {
-          "bgColor": "green",
-          "labelColor": "black",
-          "textColor": "black"
-        }
-      },
-      "users": [
-        "fedottt"
-      ],
-      "table": [
-        {
-          "label": "to do",
-          "cards": [
-            {
-              "label": "nomral",
-              "style": "yellow",
-              "text": "sample normal task"
-            }
-          ]
-        },
-        {
-          "label": "done",
-          "cards": []
-        },
-        {
-          "label": "in work",
-          "cards": [
-            {
-              "label": "no care",
-              "style": "green",
-              "text": "sample easy task"
-            },
-            {
-              "label": "important",
-              "style": "red",
-              "text": "sample important task"
-            }
-          ]
-        }
-      ]
-    },
-    "school_30": {
-      "name": "school_30",
-      "styles": {
-        "red": {
-          "bgColor": "red",
-          "labelColor": "white",
-          "textColor": "rgb(255, 255, 80)"
-        },
-        "yellow": {
-          "bgColor": "yellow",
-          "labelColor": "black",
-          "textColor": "black"
-        },
-        "green": {
-          "bgColor": "green",
-          "labelColor": "black",
-          "textColor": "black"
-        }
-      },
-      "users": [
-        "fedottt"
-      ],
-      "table": [
-        {
-          "label": "to do",
-          "cards": [
-            {
-              "label": "nomral",
-              "style": "yellow",
-              "text": "sample normal task"
-            }
-          ]
-        },
-        {
-          "label": "done",
-          "cards": []
-        },
-        {
-          "label": "in work",
-          "cards": [
-            {
-              "label": "no care",
-              "style": "green",
-              "text": "sample easy task"
-            },
-            {
-              "label": "important",
-              "style": "red",
-              "text": "sample important task"
-            }
-          ]
-        }
-      ]
-    },
-    "OGE": {
-      "name": "OGE",
-      "styles": {
-        "red": {
-          "bgColor": "red",
-          "labelColor": "white",
-          "textColor": "rgb(255, 255, 80)"
-        },
-        "yellow": {
-          "bgColor": "yellow",
-          "labelColor": "black",
-          "textColor": "black"
-        },
-        "green": {
-          "bgColor": "green",
-          "labelColor": "black",
-          "textColor": "black"
-        }
-      },
-      "users": [
-        "fedottt"
-      ],
-      "table": [
-        {
-          "label": "to do",
-          "cards": [
-            {
-              "label": "nomral",
-              "style": "yellow",
-              "text": "sample normal task"
-            },
-            {
-              "label": "important",
-              "style": "red",
-              "text": "sample important task"
-            },
-            {
-              "label": "no care",
-              "style": "green",
-              "text": "sample easy task"
-            }
-          ]
-        },
-        {
-          "label": "done",
-          "cards": []
-        },
-        {
-          "label": "in work",
-          "cards": []
-        }
-      ]
-    },
-    "EGE": {
-      "name": "EGE",
-      "styles": {
-        "red": {
-          "bgColor": "red",
-          "labelColor": "white",
-          "textColor": "rgb(255, 255, 80)"
-        },
-        "yellow": {
-          "bgColor": "yellow",
-          "labelColor": "black",
-          "textColor": "black"
-        },
-        "green": {
-          "bgColor": "green",
-          "labelColor": "black",
-          "textColor": "black"
-        }
-      },
-      "users": [
-        "fedottt"
-      ],
-      "table": [
-        {
-          "label": "to do",
-          "cards": [
-            {
-              "label": "nomral",
-              "style": "yellow",
-              "text": "sample normal task"
-            }
-          ]
-        },
-        {
-          "label": "done",
-          "cards": []
-        },
-        {
-          "label": "in work",
-          "cards": [
-            {
-              "label": "no care",
-              "style": "green",
-              "text": "sample easy task"
-            },
-            {
-              "label": "important",
-              "style": "red",
-              "text": "sample important task"
-            }
-          ]
-        }
-      ]
-    },
-    "other-stuff": {
-      "name": "other-stuff",
-      "styles": {
-        "red": {
-          "bgColor": "red",
-          "labelColor": "white",
-          "textColor": "rgb(255, 255, 80)"
-        },
-        "yellow": {
-          "bgColor": "yellow",
-          "labelColor": "black",
-          "textColor": "black"
-        },
-        "green": {
-          "bgColor": "green",
-          "labelColor": "black",
-          "textColor": "black"
-        }
-      },
-      "users": [
-        "fedottt"
-      ],
-      "table": [
-        {
-          "label": "to do",
-          "cards": [
-            {
-              "label": "nomral",
-              "style": "yellow",
-              "text": "sample normal task"
-            }
-          ]
-        },
-        {
-          "label": "done",
-          "cards": []
-        },
-        {
-          "label": "in work",
-          "cards": [
-            {
-              "label": "no care",
-              "style": "green",
-              "text": "sample easy task"
-            },
-            {
-              "label": "important",
-              "style": "red",
-              "text": "sample important task"
-            }
-          ]
-        }
       ]
     }
   }

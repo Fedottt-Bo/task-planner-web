@@ -18,6 +18,7 @@ export function Card(props : {ind: number, column: number}) {
   const {sheetObj} = useContext(context);
 
   const card = sheetObj.table[props.column].cards[props.ind];
+  const style = sheetObj.styles[card.style];
 
   return (
     <Draggable draggableId={'card-' + card.id} index={props.ind}>
@@ -28,19 +29,17 @@ export function Card(props : {ind: number, column: number}) {
           {...provided.dragHandleProps}
           className={styles.card}
         >
-          <div className={styles.label}>{card.label}</div>
-          <span>
-            {card.style}
-          </span>
-          <div className={text_styles.formattedText}>
-            {HTMLReactParser(card.text)}
+          <div className={styles.label} style={{color: style.labelColor, backgroundColor: style.bgColor}}>{card.label}</div>
+          <div className={styles.text} style={{color: style.textColor, backgroundColor: style.bgColor}}>
+            <div className={text_styles.ProseMirror}>
+              {HTMLReactParser(card.text)}
+            </div>
           </div>
         </div>
       )}
     </Draggable>
   )
 }
-
 
 export function AddCard(props: {ind: number}) {
   const {sheetObj, addCard} = useContext(context);
@@ -64,7 +63,7 @@ export function AddCard(props: {ind: number}) {
       trigger={<button className={styles.cardAdd}>Add new card</button>}
       {...{
         overlayStyle: {
-          background: `radial-gradient(rgba(47, 47, 47, 0.47) 18%, rgba(102, 102, 102, 0.666) 30%, rgba(255, 255, 255, 0.30))`,
+          background: `radial-gradient(ellipse at top, rgba(200, 200, 255, 0.13) 0%, transparent 75%), radial-gradient(ellipse at bottom, rgba(200, 130, 130, 0.18) 0%, transparent 75%)`,
           animation: "cardAddPopupOpenAnim 300ms cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards"
         }
       }}
