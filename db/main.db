@@ -43,20 +43,21 @@
         },
         {
           "label": "done",
-          "cards": []
-        },
-        {
-          "label": "in work",
           "cards": [
             {
               "label": "test 4",
               "style": "default",
               "text": "<p></p>"
-            },
+            }
+          ]
+        },
+        {
+          "label": "in work",
+          "cards": [
             {
-              "label": "test 2",
+              "label": "test 1",
               "style": "default",
-              "text": "<p>to delete</p>"
+              "text": "<p>test 2</p>"
             }
           ]
         }

@@ -28,6 +28,16 @@ const default_sheet = (name) => {return {
   ]
 }}
 
+const dev = !process.env.NODE_ENV.startsWith('production');
+
+const log = (...args) => {
+  if (dev) console.log(...args);
+}
+
+const error = (...args) => {
+  if (dev) console.error(...args);
+}
+
 (async () => {
   // Some utility
   const path = require('path');
@@ -35,7 +45,6 @@ const default_sheet = (name) => {return {
 
   // Create Next.js application
   const next = require('next');
-  const dev = process.env.NODE_ENV !== 'production';
   const next_app = next({dev})
 
   // Get standard requests handler and run preparing
@@ -332,12 +341,12 @@ const default_sheet = (name) => {return {
   // Setup callbacks
   express_app.post('/api/account/signup', (req, res) => {
     function success() {
-      console.log('signup success');
+      log('signup success');
       res.sendStatus(200);
     }
 
     function fail() {
-      console.log('signup fail');
+      log('signup fail');
       res.sendStatus(401);
     }
 
@@ -365,12 +374,12 @@ const default_sheet = (name) => {return {
   // Setup callbacks
   express_app.post('/api/account/signin', (req, res) => {
     function success() {
-      console.log('signin success');
+      log('signin success');
       res.sendStatus(200);
     }
 
     function fail() {
-      console.log('signin fail');
+      log('signin fail');
       res.sendStatus(401);
     }
     
@@ -397,12 +406,12 @@ const default_sheet = (name) => {return {
 
   express_app.post('/api/sheets/create', (req, res) => {
     function success() {
-      console.log('sheet creeation success');
+      log('sheet creeation success');
       res.sendStatus(200);
     }
 
     function fail() {
-      console.log('sheet creeation fail');
+      log('sheet creeation fail');
       res.sendStatus(401);
     }
     
@@ -469,7 +478,7 @@ const default_sheet = (name) => {return {
       socket
         .on('move card inside', (column, ind, new_ind) => {
           if (sheet_modify.move_card(socket.path, column, column, ind, new_ind)) {
-            console.log(`moved card in ${socket.path}: from (${column}; ${ind}) to (${column}; ${new_ind})`);
+            log(`moved card in ${socket.path}: from (${column}; ${ind}) to (${column}; ${new_ind})`);
 
             socket.to(socket.path).emit('move card inside', column, ind, new_ind);
             
@@ -479,7 +488,7 @@ const default_sheet = (name) => {return {
         })
         .on('move card between', (column, new_column, ind, new_ind) => {
           if (sheet_modify.move_card(socket.path, column, new_column, ind, new_ind)) {
-            console.log(`moved card in ${socket.path}: from (${column}; ${ind}) to (${new_column}; ${new_ind})`);
+            log(`moved card in ${socket.path}: from (${column}; ${ind}) to (${new_column}; ${new_ind})`);
 
             socket.to(socket.path).emit('move card between', column, new_column, ind, new_ind);
           } else {
@@ -488,7 +497,7 @@ const default_sheet = (name) => {return {
         })
         .on('move column', (ind, new_ind) => {
           if (sheet_modify.move_column(socket.path, ind, new_ind)) {
-            console.log(`moved column in ${socket.path}: from ${ind} to ${new_ind}`);
+            log(`moved column in ${socket.path}: from ${ind} to ${new_ind}`);
 
             socket.to(socket.path).emit('move column', ind, new_ind);
           } else {
@@ -497,7 +506,7 @@ const default_sheet = (name) => {return {
         })
         .on('add card', (column, label, style, text) => {
           if (sheet_modify.add_card(socket.path, column, label, style, text)) {
-            console.log(`added card in ${socket.path}: to ${column} named ${label}, styled ${style} and with length ${text.length}`);
+            log(`added card in ${socket.path}: to ${column} named ${label}, styled ${style} and with length ${text.length}`);
 
             socket.to(socket.path).emit('add card', column, label, style, text);
           } else {
@@ -506,7 +515,7 @@ const default_sheet = (name) => {return {
         })
         .on('add user', (username, callback) => {
           if (addUserToSheet(socket.path, username)) {
-            console.log(`added user in ${socket.path}: ${username}`);
+            log(`added user in ${socket.path}: ${username}`);
 
             if (typeof callback === 'function') callback(true);
             socket.to(socket.path).emit('add user', username);
@@ -514,7 +523,7 @@ const default_sheet = (name) => {return {
         })
         .on('remove user', (username, callback) => {
           if (deleteUserFromSheet(socket.path, username)) {
-            console.log(`removed user from ${socket.path}: ${username}`);
+            log(`removed user from ${socket.path}: ${username}`);
 
             if (typeof callback === 'function') callback(true);
             socket.to(socket.path).emit('remove user', username);
@@ -522,7 +531,7 @@ const default_sheet = (name) => {return {
         })
         .on('delete card', (column, ind) => {
           if (sheet_modify.delete_card(socket.path, column, ind)) {
-            console.log(`deleted card in ${socket.path}: (${column}: ${ind})`);
+            log(`deleted card in ${socket.path}: (${column}: ${ind})`);
 
             socket.to(socket.path).emit('delete card', column, ind);
           } else {
@@ -531,7 +540,7 @@ const default_sheet = (name) => {return {
         })
         .on('add style', (name, obj) => {
           if (sheet_modify.add_edit_style(socket.path, name, obj)) {
-            console.log(`updated style in ${socket.path}: ${name}`);
+            log(`updated style in ${socket.path}: ${name}`);
 
             socket.to(socket.path).emit('add style', name, obj);
           } else {
@@ -545,13 +554,13 @@ const default_sheet = (name) => {return {
       server.listen(3000, (err) => {
         if (err)
           throw err;
-        console.log('> Ready on port 3000')
+        log('> Ready on port 3000')
       })
 
       //socketServer.listen(3001);
     })
     .catch((ex) => {
-      console.error(ex.stack)
+      error(ex.stack)
       process.exit(1)
   })
 })()
