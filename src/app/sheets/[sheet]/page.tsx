@@ -5,13 +5,14 @@ import { randomBytes } from 'crypto';
 import { Socket, io } from 'socket.io-client';
 import { redirect, useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
-import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, DragStart, DropResult, Droppable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
 import { Popup } from 'reactjs-popup';
 
 import styles from './page.module.css';
 
 import { context, SheetType } from './context';
 import Column from './column';
+import classNames from 'classnames';
 
 export default function Home({ params }: { params: { sheet: string } }) {
   const Router = useRouter();
@@ -19,6 +20,8 @@ export default function Home({ params }: { params: { sheet: string } }) {
   const [isLoading, setIsLoading] = useState<Boolean>(true);
   const [sheet, setSheet] = useState<SheetType>({} as SheetType);
   const [socket, setSocket] = useState({} as Socket);
+
+  const [isDragging, setIsDragging] = useState(false);
 
   const moveCard = useCallback((column: number, new_column: number, ind: number, new_ind: number, sendMessage: boolean = false) => {
     console.log(`moved card: from (${column}: ${ind}) to (${new_column}: ${new_ind})`);
@@ -140,6 +143,8 @@ export default function Home({ params }: { params: { sheet: string } }) {
 
 
   const deleteCard = useCallback((column: number, ind: number, sendMessage: boolean = false) => {
+    console.log(`deleting card: (${column}: ${ind})`)
+
     /* Validate indices */
     if (sheet.table[column] === undefined || sheet.table[column].cards[ind] === undefined) return false;
 
@@ -152,11 +157,18 @@ export default function Home({ params }: { params: { sheet: string } }) {
     return true;
   }, [sheet, socket])
 
+  const onDragStart = useCallback((event: DragStart) => {
+    setIsDragging(event.type === "CARDS");
+  }, []);
+
   const onDragEnd = useCallback((params : DropResult) => {
+    setIsDragging(false);
+
     switch (params.type) {
     case "CARDS":
       if (params.reason === 'DROP' && params.destination) {
         if (params.destination.droppableId === '-1') {
+          if (!deleteCard(Number.parseInt(params.source.droppableId), params.source.index, true)) Router.refresh();
         } else {
           if (!moveCard(Number.parseInt(params.source.droppableId), Number.parseInt(params.destination.droppableId),
                         params.source.index, params.destination.index, true)) Router.refresh();
@@ -169,7 +181,7 @@ export default function Home({ params }: { params: { sheet: string } }) {
       }
       break;
     }
-  }, [moveCard, moveColumn, Router])
+  }, [moveCard, moveColumn, deleteCard, Router])
 
   useEffect(() => {
     /* Validate access */
@@ -217,7 +229,10 @@ export default function Home({ params }: { params: { sheet: string } }) {
       .removeAllListeners('remove user').on('remove user', (username) => {
         removeUser(username, false);
       })
-  }, [socket, Router, moveCard, moveColumn, addCard, addUser, removeUser]);
+      .removeAllListeners('delete card').on('delete card', (column, ind) => {
+        deleteCard(column, ind, false);
+      })
+  }, [socket, Router, moveCard, moveColumn, addCard, addUser, removeUser, deleteCard]);
 
   const StylesManage = () => {
     return (
@@ -311,13 +326,16 @@ export default function Home({ params }: { params: { sheet: string } }) {
   } else {
     return (
       <main className={styles.sheet}>
-        <div className={styles.description}>
+        <div className={classNames(
+          styles.description,
+          isDragging ? styles.descriptionClose : styles.descriptionOpen
+        )}>
           <StylesManage/>
           <ColumnAdding/>
           <AccessManage/>
         </div>
         <context.Provider value={{sheetName: params.sheet, sheetObj: sheet, addCard, deleteCard}}>
-          <DragDropContext onDragEnd={onDragEnd}>
+          <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
             <Droppable
               droppableId="table"
               type="COLUMN"
@@ -329,12 +347,36 @@ export default function Home({ params }: { params: { sheet: string } }) {
                   ref={provided.innerRef}
                   className={styles.tab}
                 >
-                  {sheet.table.map((val, ind) => {
-                    return (
-                      <Column key={'column-' + (val.id ? val.id : (val.id = randomBytes(4).readUInt32BE()))} ind={ind}/>
-                    )
-                  })}
-                  {provided.placeholder}
+                  <div className={styles.columns}>
+                    {sheet.table.map((val, ind) => {
+                      return (
+                        <Column key={'column-' + (val.id ? val.id : (val.id = randomBytes(4).readUInt32BE()))} ind={ind}/>
+                      )
+                    })}
+                    {provided.placeholder}
+                  </div>
+                  <Droppable
+                    droppableId="-1"
+                    type="CARDS"
+                  >
+                    {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                      <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        style={{
+                          height: "18vmin",
+                          width: "30vmin"
+                        }}
+                        className={classNames(
+                          styles.deleteCard,
+                          isDragging ? styles.descriptionOpen : styles.descriptionClose,
+                          snapshot.isDraggingOver ? styles.deleteCardActive : styles.deleteCardUnactive
+                        )}
+                      >
+                        {snapshot.isDraggingOver ? <></> : <span>delete card</span>}
+                      </div>
+                    )}
+                  </Droppable>
                 </div>
               )}
             </Droppable>

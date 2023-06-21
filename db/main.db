@@ -30,14 +30,14 @@
           "label": "to do",
           "cards": [
             {
-              "label": "no care",
-              "style": "default",
-              "text": "sample easy task"
-            },
-            {
               "label": "normal",
               "style": "default",
               "text": "sample normal task"
+            },
+            {
+              "label": "test form clearing",
+              "style": "default",
+              "text": "<p>Really important!</p>"
             }
           ]
         },
@@ -49,14 +49,14 @@
           "label": "in work",
           "cards": [
             {
-              "label": "important",
+              "label": "test 4",
               "style": "default",
-              "text": "sample important task"
+              "text": "<p></p>"
             },
             {
-              "label": "Be cool",
+              "label": "test 2",
               "style": "default",
-              "text": "<h2>Task name</h2><p>Some text</p><h3>Subtask</h3><p>Other text</p><h3>Next subtask</h3><p>And more text, more text, useless text, yeah, more text, more text, more text, more text, more text, more text, more text, more text, more text, more text, more text</p>"
+              "text": "<p>to delete</p>"
             }
           ]
         }

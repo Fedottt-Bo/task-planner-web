@@ -26,6 +26,14 @@ export function Card(props : {ind: number, column: number}) {
       return style;
     }
 
+    if (snapshot.isDropAnimating && snapshot.draggingOver === "-1") {
+      return {
+        ...style,
+        opacity: "0",
+        transition: `all 1ms linear`
+      }
+    }
+
     return {
       ...style,
       transition: `all 1s ease`,
@@ -64,17 +72,31 @@ export function AddCard(props: {ind: number}) {
 
   const labelEditor = useTextEditor({placeholder: ""});
   const textEditor = useRichEditor({placeholder: ""});
-  const [style, setStyle] = useState<string>(Object.keys(sheetObj.styles)[0]);
+  const [style, setStyle] = useState<string>("default");
+
+  const [isOpen, setIsOpen] = useState(false);
 
   function onClick() {
     const label = labelEditor?.getText();
     const text = textEditor?.getHTML();
 
-    if (label && text && !addCard(props.ind, {label, style, text})) Router.refresh();
+    if (label && text) {
+      if (addCard(props.ind, {label, style, text})) {
+        labelEditor?.commands.clearContent();
+        textEditor?.commands.clearContent();
+        setStyle("default");
+        setIsOpen(false);
+      } else {
+        Router.refresh();
+      }
+    }
   }
 
   return (
     <Popup
+      open={isOpen}
+      onOpen={() => setIsOpen(true)}
+      onClose={() => setIsOpen(false)}
       trigger={
         <div
           className={styles.card}
@@ -136,7 +158,7 @@ export function AddCard(props: {ind: number}) {
           <label>Card text:</label>
           <RichEditor editor={textEditor}/>
         </div>
-        <button onClick={onClick}>Confirm</button>
+        <button onClick={e => {e.preventDefault(); onClick()}}>Confirm</button>
       </div>
     </Popup>
   )

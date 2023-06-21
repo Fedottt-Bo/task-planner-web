@@ -277,10 +277,10 @@ const default_sheet = (name) => {return {
 
       /* Validate object */
       if (sheet === undefined) return false;
-      if (sheet.columns[column] === undefined) return false;
+      if (sheet.table[column] === undefined) return false;
       
       /* Validate index */
-      if (ind >= sheet.columns[column].cards.length) return false;
+      if (ind >= sheet.table[column].cards.length) return false;
 
       /* Remove card */
       sheet.table[column].cards.splice(ind, 1);
