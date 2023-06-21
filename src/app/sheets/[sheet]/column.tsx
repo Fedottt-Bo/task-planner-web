@@ -2,7 +2,7 @@
 
 import { randomBytes } from 'crypto';
 import React, { useContext } from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { Draggable, DraggableProvided, DraggableStateSnapshot, Droppable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
 
 import { context } from './context';
 import { Card, AddCard } from './card';
@@ -19,34 +19,42 @@ export default function Column(props : {ind: number}) {
       draggableId={'column-' + column.id}
       index={props.ind}
     >
-      {(provided) => (
+      {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
         <div
-          className={styles.column}
           {...provided.dragHandleProps}
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
-          <div className={styles.label}>
-            {sheetObj.table[props.ind].label}
-          </div>
-          <Droppable
-            droppableId={props.ind.toString()}
-            type='CARDS'
+          <div
+            className={styles.column}
+            style={{backgroundColor: !snapshot.isDragging ? "inherit" : "rgba(102, 240, 102, 0.30)"}}
           >
-            {(provided, snapshot) => (          
-              <div
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                className={styles.cards}
-              >
-                {column.cards.map((val, ind, arr) => (
-                  <Card key={'card-' + (val.id ? val.id : (arr[ind].id = randomBytes(4).readUInt32BE(0)))} ind={ind} column={props.ind}/>
-                ))}
-                {provided.placeholder}
-                <AddCard {...props}/>
-              </div>
-            )}
-          </Droppable>
+            <div className={styles.label}>
+              {sheetObj.table[props.ind].label}
+            </div>
+            <Droppable
+              droppableId={props.ind.toString()}
+              type='CARDS'
+            >
+              {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (          
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  <div
+                    className={styles.cards}
+                    style={{backgroundColor: !snapshot.isDraggingOver ? "inherit" : "rgba(240, 240, 102, 0.30)"}}
+                  >
+                    {column.cards.map((val, ind, arr) => (
+                      <Card key={'card-' + (val.id ? val.id : (arr[ind].id = randomBytes(4).readUInt32BE(0)))} ind={ind} column={props.ind}/>
+                      ))}
+                    {provided.placeholder}
+                    <AddCard {...props}/>
+                  </div>
+                </div>
+              )}
+            </Droppable>
+          </div>
         </div>
       )}
     </Draggable>

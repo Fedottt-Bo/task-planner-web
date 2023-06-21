@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 
+import { InputPassword } from './input'
+
 import '../form_style.css';
 
 export default function Signup() {
@@ -70,26 +72,26 @@ export default function Signup() {
   return(
     <div>
       <form>
-        <label className="formStdInput">
-          <p>Username</p>
+        <div className="formStdInput">
+          <label>Username</label>
           <input type="text" autoComplete="username" placeholder="your username" minLength={3} onKeyUp={e => validateUserName()} onChange={e => setUserName(e.target.value)}/>
           <span className="formStdInputError">
             {usernameError}
           </span>
-        </label>
-        <label className="formStdInput">
-          <p>Password</p>
-          <input type="text" autoComplete="new-password" placeholder="password"  minLength={8} onKeyUp={e => validatePassword()} onChange={e => setPassword(e.target.value)}/>
+        </div>
+        <div className="formStdInput">
+          <label>Password</label>
+          <InputPassword autoComplete="new-password" placeholder="password" onKeyUp={e => validatePassword()} onChange={e => setPassword((e.target as HTMLTextAreaElement).value)}/>
           <span className="formStdInputError">
             {passwordError}
           </span>
-        </label>
-        <label className="formStdInput">
-          <p>Password</p>
-          <input type="text" autoComplete="new-password" placeholder="password"  minLength={8} onKeyUp={e => validatePassword()} onChange={e => setPassword2(e.target.value)}/>
-        </label>
+        </div>
+        <div className="formStdInput">
+          <label>Password</label>
+          <InputPassword autoComplete="new-password" placeholder="password" onKeyUp={e => validatePassword()} onChange={e => setPassword2((e.target as HTMLTextAreaElement).value)}/>
+        </div>
         <div className="formStdButton">
-          <button type="button" onClick={(e) => submit()}>Submit</button>
+          <button type="button" onClick={(e) => {e.preventDefault(); submit()}}>Submit</button>
         </div>
       </form>
     </div>

@@ -82,6 +82,76 @@ export default function Home({ params }: { params: { sheet: string } }) {
     return true;
   }, [sheet, socket])
 
+  const addUser = useCallback((username: string, sendMessage: boolean = false) => {
+    const act = () => {
+      if (sheet.users.findIndex(val => val === username) === -1) {
+        const new_sheet = {...sheet};
+        new_sheet.users.push(username);
+        setSheet(new_sheet);
+      }
+    }
+
+    console.log(`Adding user: ${username}`);
+
+    if (sendMessage) socket.emit('add user', username, (success?: boolean) => {
+      if (success) act()
+      else alert(`Failed adding ${username}`);
+    })
+    else act()
+
+    return true;
+  }, [sheet, socket])
+
+  const removeUser = useCallback((username: string, sendMessage: boolean = false) => {
+    const act = () => {
+      if (username === Cookies.get('username')) {
+        Router.replace('/sheets');
+      } else {
+        let ind = sheet.users.findIndex(val => val === username);
+
+        if (ind !== -1) {
+          const new_sheet = {...sheet};
+          new_sheet.users.splice(ind, 1);
+          setSheet(new_sheet);
+        }
+      }
+    }
+
+    console.log(`Removing user: ${username}`);
+    
+    if (sendMessage) socket.emit('remove user', username, (success?: boolean) => {
+      if (success) act()
+      else alert(`Failed removing ${username}`);
+    })
+    else act();
+
+    return true;
+  }, [sheet, socket, Router])
+
+  const addEditStyle = useCallback((name: string, obj: any, sendMessage: boolean = false) => {
+    const new_sheet = {...sheet};
+    new_sheet.styles[name] = obj;
+    setSheet(new_sheet);
+
+    if (sendMessage) socket.emit('add style', name, obj);
+    
+    return true;
+  }, [sheet, socket])
+
+
+  const deleteCard = useCallback((column: number, ind: number, sendMessage: boolean = false) => {
+    /* Validate indices */
+    if (sheet.table[column] === undefined || sheet.table[column].cards[ind] === undefined) return false;
+
+    const new_sheet = {...sheet};
+    new_sheet.table[column].cards.splice(ind, 1);
+    setSheet(new_sheet);
+
+    if (sendMessage) socket.emit('delete card', column, ind);
+
+    return true;
+  }, [sheet, socket])
+
   const onDragEnd = useCallback((params : DropResult) => {
     switch (params.type) {
     case "CARDS":
@@ -141,16 +211,37 @@ export default function Home({ params }: { params: { sheet: string } }) {
       .removeAllListeners('add card').on('add card', (column, label, style, text) => {
         if (!addCard(column, {label, style, text}, false)) Router.refresh();
       })
-  }, [socket, Router, moveCard, moveColumn, addCard]);
+      .removeAllListeners('add user').on('add user', (username) => {
+        addUser(username, false);
+      })
+      .removeAllListeners('remove user').on('remove user', (username) => {
+        removeUser(username, false);
+      })
+  }, [socket, Router, moveCard, moveColumn, addCard, addUser, removeUser]);
 
   const StylesManage = () => {
     return (
       <Popup
         trigger={<button className={styles.element}>Manage styles</button>}
+        {...{
+          overlayStyle: {
+            background: `radial-gradient(ellipse at top, rgba(200, 200, 255, 0.13) 0%, transparent 75%), radial-gradient(ellipse at bottom, rgba(130, 200, 130, 0.18) 0%, transparent 75%)`,
+            animation: "cardAddPopupOpenAnim 300ms cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards"
+          }
+        }}
         modal
         nested
       >
-        <div>Yeah</div>
+        <div style={{backgroundColor: "transparent", width: "max-content", height: "max-content"}}>
+          {Object.entries(sheet.styles).map(val => {
+            return (
+              <div key={val[0]} className={styles.card}>
+                <div className={styles.label} style={{color: val[1].labelColor, backgroundColor: val[1].bgColor}}>{val[0]}</div>
+                <p className={styles.text} style={{color: val[1].textColor, backgroundColor: val[1].bgColor}}>Text example</p>
+              </div>
+            )
+          })}
+        </div>
       </Popup>
     )
   }
@@ -159,15 +250,23 @@ export default function Home({ params }: { params: { sheet: string } }) {
     return (
       <Popup
         trigger={<button className={styles.element}>Add column</button>}
+        {...{
+          overlayStyle: {
+            background: `radial-gradient(ellipse at top, rgba(200, 200, 255, 0.13) 0%, transparent 75%), radial-gradient(ellipse at bottom, rgba(130, 200, 130, 0.18) 0%, transparent 75%)`,
+            animation: "cardAddPopupOpenAnim 300ms cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards"
+          }
+        }}
         modal
         nested
       >
-        <div>Yeah</div>
+        <div style={{color: "red"}}>Not implemented yet</div>
       </Popup>
     )
   }
 
   const AccessManage = () => {
+    const [username, setUsername] = useState<string>("");
+
     return (
       <Popup
         trigger={<button className={styles.element}>Manage access</button>}
@@ -181,12 +280,28 @@ export default function Home({ params }: { params: { sheet: string } }) {
         nested
       >
         <div>
-          
+          {sheet.users.map((val, ind) => {
+            return (
+              <div key={'user-' + ind} className={styles.card}>
+                <label className={styles.label}>{val}</label>
+                <button onClick={e => {
+                  removeUser(val, true);
+                }} style={{margin: "0.5rem"}}>remove</button>
+              </div>
+            )
+          })}
+          <form className={styles.card}>
+            <input placeholder='username' onChange={(e: React.ChangeEvent) => setUsername((e.target as HTMLTextAreaElement).value)}></input>
+            <button onClick={e => {
+              e.preventDefault();
+              addUser(username, true);
+            }}>add user</button>
+          </form>
         </div>
       </Popup>
     )
   }
-  
+
   if (isLoading) {
     return (
       <main className={styles.sheet}>
@@ -201,7 +316,7 @@ export default function Home({ params }: { params: { sheet: string } }) {
           <ColumnAdding/>
           <AccessManage/>
         </div>
-        <context.Provider value={{sheetName: params.sheet, sheetObj: sheet, addCard}}>
+        <context.Provider value={{sheetName: params.sheet, sheetObj: sheet, addCard, deleteCard}}>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable
               droppableId="table"

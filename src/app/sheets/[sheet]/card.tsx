@@ -2,7 +2,7 @@
 
 import React, { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 import { Popup } from 'reactjs-popup';
 import { DropdownList } from 'react-widgets';
 import HTMLReactParser from 'html-react-parser'
@@ -22,19 +22,24 @@ export function Card(props : {ind: number, column: number}) {
 
   return (
     <Draggable draggableId={'card-' + card.id} index={props.ind}>
-      {(provided) => (
+      {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className={styles.card}
+          className={styles.cardDraggable}
         >
-          <div className={styles.label} style={{color: style.labelColor, backgroundColor: style.bgColor}}>{card.label}</div>
-          <div className={styles.text} style={{color: style.textColor, backgroundColor: style.bgColor}}>
-            <div className={text_styles.ProseMirror}>
-              {HTMLReactParser(card.text)}
+          <div
+            style={{backgroundColor: !snapshot.isDragging ? "inherit" : "rgba(102, 240, 102, 0.30)"}}
+            className={styles.card}
+          >
+            <div className={styles.label} style={{color: style.labelColor, backgroundColor: style.bgColor}}>{card.label}</div>
+            <div className={styles.text} style={{color: style.textColor, backgroundColor: style.bgColor}}>
+              <div className={text_styles.ProseMirror}>
+                {HTMLReactParser(card.text)}
+              </div>
             </div>
-          </div>
+          </div>          
         </div>
       )}
     </Draggable>

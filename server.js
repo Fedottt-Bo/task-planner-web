@@ -165,10 +165,10 @@ const default_sheet = (name) => {return {
       return false;
     } else {
       if (!Array.isArray(sheet.users)) sheet.users = []
-      sheet.users.push(username);
+      if (sheet.users.findIndex(val => val === username) === -1) sheet.users.push(username);
 
       if (!Array.isArray(user.sheets)) user.sheets = []
-      user.sheets.push(name);
+      if (user.sheets.findIndex(val => val === name) === -1) user.sheets.push(name);
 
       return true;
     }
@@ -193,7 +193,7 @@ const default_sheet = (name) => {return {
         }
       }
 
-      /* Remove from table */
+      /* Remove from sheet */
       {
         let arr = db.data.sheets[name].users;
 
@@ -206,6 +206,8 @@ const default_sheet = (name) => {return {
           if (tableRemove && arr.length === 0) deleteSheet(name);
         }
       }
+
+      return true;
     }
   }
 
@@ -301,6 +303,17 @@ const default_sheet = (name) => {return {
       card.label = label;
       card.style = style;
       card.text = text;
+      db.was_change = true;
+
+      return true;
+    },
+    add_edit_style: function(sheet, name, obj) {
+      sheet = db.data.sheets[sheet];
+
+      /* Validate object */
+      if (sheet === undefined) return false;
+
+      sheet.styles[name] = obj;
       db.was_change = true;
 
       return true;
@@ -487,6 +500,40 @@ const default_sheet = (name) => {return {
             console.log(`added card in ${socket.path}: to ${column} named ${label}, styled ${style} and with length ${text.length}`);
 
             socket.to(socket.path).emit('add card', column, label, style, text);
+          } else {
+            socket.sendSheet();
+          }
+        })
+        .on('add user', (username, callback) => {
+          if (addUserToSheet(socket.path, username)) {
+            console.log(`added user in ${socket.path}: ${username}`);
+
+            if (typeof callback === 'function') callback(true);
+            socket.to(socket.path).emit('add user', username);
+          } else if (typeof callback === 'function') callback(false);
+        })
+        .on('remove user', (username, callback) => {
+          if (deleteUserFromSheet(socket.path, username)) {
+            console.log(`removed user from ${socket.path}: ${username}`);
+
+            if (typeof callback === 'function') callback(true);
+            socket.to(socket.path).emit('remove user', username);
+          } else if (typeof callback === 'function') callback(false);
+        })
+        .on('delete card', (column, ind) => {
+          if (sheet_modify.delete_card(socket.path, column, ind)) {
+            console.log(`deleted card in ${socket.path}: (${column}: ${ind})`);
+
+            socket.to(socket.path).emit('delete card', column, ind);
+          } else {
+            socket.sendSheet();
+          }
+        })
+        .on('add style', (name, obj) => {
+          if (sheet_modify.add_edit_style(socket.path, name, obj)) {
+            console.log(`updated style in ${socket.path}: ${name}`);
+
+            socket.to(socket.path).emit('add style', name, obj);
           } else {
             socket.sendSheet();
           }

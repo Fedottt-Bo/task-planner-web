@@ -1,8 +1,10 @@
 'use client'
 
 import Cookies from 'js-cookie';
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from 'next/navigation';
+
+import { InputPassword } from './input'
 
 import '../form_style.css'
 
@@ -63,22 +65,24 @@ export default function Signin() {
   return(
     <div>
       <form>
-        <label className="formStdInput">
-          <p>Username</p>
-          <input type="text" autoComplete="username" placeholder="your username" minLength={3} onKeyUp={e => validateUserName()} onChange={e => setUserName(e.target.value)}/>
+        <div className="formStdInput">
+          <label>Username</label>
+          <p>
+            <input type="text" autoComplete="username" placeholder="your username" onKeyUp={e => validateUserName()} onChange={e => setUserName(e.target.value)}/>
+          </p>
           <span className="formStdInputError">
             {usernameError}
           </span>
-        </label>
-        <label className="formStdInput">
-          <p>Password</p>
-          <input type="password" autoComplete="current-password" placeholder="password"  minLength={8} onKeyUp={e => validatePassword()} onChange={e => setPassword(e.target.value)}/>
+        </div>
+        <div className="formStdInput">
+          <label>Password</label>
+          <InputPassword autoComplete="current-password" placeholder="password" onKeyUp={e => validatePassword()} onChange={e => setPassword((e.target as HTMLTextAreaElement).value)}/>
           <span className="formStdInputError">
             {passwordError}
           </span>
-        </label>
+        </div>
         <div className="formStdButton">
-          <button type="button" onClick={submit}>Submit</button>
+          <button type="button" onClick={e => {e.preventDefault(); submit()}}>Submit</button>
         </div>
       </form>
     </div>

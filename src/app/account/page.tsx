@@ -4,17 +4,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import base_styles from '../page.module.css';
 import styles from './page.module.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 
 import Cookies from 'js-cookie';
 
 export default function Home() {
   const Router = useRouter();
+
+  const [username, setUsername] = useState<string>("");
   
   useEffect(() => {
     if (Cookies.get("key") === undefined) {
       redirect('../login');
+    } else {
+      setUsername(Cookies.get("username") || "");
     }
   }, []);
 
@@ -51,7 +55,7 @@ export default function Home() {
           <label>
             <p>Username</p>
             <span>
-              {Cookies.get("username")}
+              {username}
             </span>
           </label>
           

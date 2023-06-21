@@ -16,12 +16,17 @@
   margin-bottom: 0.7rem;
 }
 
-.login_window p {
+.login_window label {
   margin: 0;
   opacity: 0.6;
   font-size: 0.9rem;
   line-height: 1.5;
   max-width: 30ch;
+}
+
+.login_window p {
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 .mode_switch {
