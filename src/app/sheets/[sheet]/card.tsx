@@ -74,10 +74,28 @@ export function AddCard(props: {ind: number}) {
   }
 
   return (
-    <div className={styles.card}>
-        
     <Popup
-      trigger={<button className={styles.cardAdd}>Add new card</button>}
+      trigger={
+        <div
+          className={styles.card}
+          style={{
+            padding: "0",
+            display: "flex",
+            flexFlow: "column nowarp",
+            alignContent: "center",
+            height: "fit-content",
+          }}
+        >
+          <button
+            style={{
+              width: "100%",
+              border: "none"
+            }}
+          >
+            Add new card
+          </button>
+        </div>
+      }
       {...{
         overlayStyle: {
           background: `radial-gradient(ellipse at top, rgba(200, 200, 255, 0.13) 0%, transparent 75%), radial-gradient(ellipse at bottom, rgba(200, 130, 130, 0.18) 0%, transparent 75%)`,
@@ -121,6 +139,5 @@ export function AddCard(props: {ind: number}) {
         <button onClick={onClick}>Confirm</button>
       </div>
     </Popup>
-      </div>
   )
 }

@@ -49,11 +49,11 @@ export default function Column(props : {ind: number}) {
                       <Card key={'card-' + (val.id ? val.id : (arr[ind].id = randomBytes(4).readUInt32BE(0)))} ind={ind} column={props.ind}/>
                       ))}
                     {provided.placeholder}
-                    <AddCard {...props}/>
                   </div>
                 </div>
               )}
             </Droppable>
+            <AddCard {...props}/>
           </div>
         </div>
       )}

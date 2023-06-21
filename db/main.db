@@ -28,22 +28,22 @@
       "table": [
         {
           "label": "to do",
-          "cards": []
-        },
-        {
-          "label": "done",
           "cards": [
-            {
-              "label": "normal",
-              "style": "default",
-              "text": "sample normal task"
-            },
             {
               "label": "no care",
               "style": "default",
               "text": "sample easy task"
+            },
+            {
+              "label": "normal",
+              "style": "default",
+              "text": "sample normal task"
             }
           ]
+        },
+        {
+          "label": "done",
+          "cards": []
         },
         {
           "label": "in work",
@@ -52,6 +52,11 @@
               "label": "important",
               "style": "default",
               "text": "sample important task"
+            },
+            {
+              "label": "Be cool",
+              "style": "default",
+              "text": "<h2>Task name</h2><p>Some text</p><h3>Subtask</h3><p>Other text</p><h3>Next subtask</h3><p>And more text, more text, useless text, yeah, more text, more text, more text, more text, more text, more text, more text, more text, more text, more text, more text</p>"
             }
           ]
         }
