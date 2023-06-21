@@ -4,20 +4,20 @@
       "username": "fedottt",
       "password": "$2b$10$31g8oHdptmywcLN6RSaOaOEnpOYdtWMeyNVXTNTH3zRnLHkE9mGZy",
       "sheets": [
-        "sample-001"
+        "cool-sample"
       ]
     },
     "FB1": {
       "username": "FB1",
       "password": "$2b$10$3Rf61/Mxc.ZdVreYVM6.e.22bni4syBkweBnwB4ul/etZWyMaZzVu",
       "sheets": [
-        "sample-001"
+        "cool-sample"
       ]
     }
   },
   "sheets": {
-    "sample-001": {
-      "name": "sample-001",
+    "cool-sample": {
+      "name": "cool-sample",
       "styles": {
         "default": {
           "bgColor": "rgb(227, 203, 123)",
@@ -28,26 +28,26 @@
       "table": [
         {
           "label": "to do",
-          "cards": [
-            {
-              "label": "nomral",
-              "style": "default",
-              "text": "sample normal task"
-            }
-          ]
-        },
-        {
-          "label": "in work",
           "cards": []
         },
         {
           "label": "done",
           "cards": [
             {
+              "label": "normal",
+              "style": "default",
+              "text": "sample normal task"
+            },
+            {
               "label": "no care",
               "style": "default",
               "text": "sample easy task"
-            },
+            }
+          ]
+        },
+        {
+          "label": "in work",
+          "cards": [
             {
               "label": "important",
               "style": "default",

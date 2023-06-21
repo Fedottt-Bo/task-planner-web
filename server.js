@@ -11,7 +11,7 @@ const default_sheet = (name) => {return {
     {
       label: "to do",
       cards: [
-        {label: "nomral", style: "default", text: "sample normal task"}
+        {label: "normal", style: "default", text: "sample normal task"}
       ]
     },
     {

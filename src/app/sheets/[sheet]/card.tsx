@@ -6,6 +6,7 @@ import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beau
 import { Popup } from 'reactjs-popup';
 import { DropdownList } from 'react-widgets';
 import HTMLReactParser from 'html-react-parser'
+import classNames from 'classnames';
 
 import "react-widgets/styles.css";
 import styles from './page.module.css';
@@ -20,6 +21,18 @@ export function Card(props : {ind: number, column: number}) {
   const card = sheetObj.table[props.column].cards[props.ind];
   const style = sheetObj.styles[card.style];
 
+  const getStyle = (style: any, snapshot: DraggableStateSnapshot) => {
+    if (!snapshot.isDropAnimating) {
+      return style;
+    }
+
+    return {
+      ...style,
+      transition: `all 1s ease`,
+      transitionDelay: "80ms",
+    };
+  }
+
   return (
     <Draggable draggableId={'card-' + card.id} index={props.ind}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot) => (
@@ -27,19 +40,18 @@ export function Card(props : {ind: number, column: number}) {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className={styles.cardDraggable}
+          className={classNames(
+            styles.card,
+            (snapshot.isDragging && !snapshot.isDropAnimating) && styles.draggingAnimation
+          )}
+          style={getStyle(provided.draggableProps.style, snapshot)}
         >
-          <div
-            style={{backgroundColor: !snapshot.isDragging ? "inherit" : "rgba(102, 240, 102, 0.30)"}}
-            className={styles.card}
-          >
-            <div className={styles.label} style={{color: style.labelColor, backgroundColor: style.bgColor}}>{card.label}</div>
-            <div className={styles.text} style={{color: style.textColor, backgroundColor: style.bgColor}}>
-              <div className={text_styles.ProseMirror}>
-                {HTMLReactParser(card.text)}
-              </div>
+          <div className={styles.label} style={{color: style.labelColor, backgroundColor: style.bgColor}}>{card.label}</div>
+          <div className={styles.text} style={{color: style.textColor, backgroundColor: style.bgColor}}>
+            <div className={text_styles.ProseMirror}>
+              {HTMLReactParser(card.text)}
             </div>
-          </div>          
+          </div>
         </div>
       )}
     </Draggable>
