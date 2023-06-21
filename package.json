@@ -8,6 +8,9 @@
     "start": "set NODE_ENV=production && node server.js",
     "lint": "next lint"
   },
+  "engines": {
+    "node": "~20.2.0"
+  },
   "dependencies": {
     "@tiptap/extension-color": "^2.0.3",
     "@tiptap/extension-list-item": "^2.0.3",
