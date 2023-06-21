@@ -7,7 +7,7 @@ import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 
-import './text_editor.css'
+import './textEditor.module.css'
 
 const MenuBar = ({ editor }) => {
   if (!editor) {

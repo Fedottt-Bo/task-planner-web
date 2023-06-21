@@ -10,7 +10,7 @@ import classNames from 'classnames';
 
 import "react-widgets/styles.css";
 import styles from './page.module.css';
-import text_styles from './text_editor.css';
+import text_styles from './textEditor.module.css';
 
 import { useTextEditor, TextEditor, useRichEditor, RichEditor } from './text_editor';
 import { context } from './context';
