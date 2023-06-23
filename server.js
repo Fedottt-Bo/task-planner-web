@@ -28,7 +28,8 @@ const default_sheet = (name) => {return {
   ]
 }}
 
-const dev = !process.env.NODE_ENV.startsWith('production');
+const dev = !(typeof process.env.NODE_ENV === 'string' || process.env.NODE_ENV instanceof String) || !process.env.NODE_ENV.startsWith('production');
+console.log(dev ? "Using development mode" : "Using production mode");
 
 const log = (...args) => {
   if (dev) console.log(...args);

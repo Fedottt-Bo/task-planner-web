@@ -56,7 +56,7 @@ export function Card(props : {ind: number, column: number}) {
         >
           <div className={styles.label} style={{color: style.labelColor, backgroundColor: style.bgColor}}>{card.label}</div>
           <div className={styles.text} style={{color: style.textColor, backgroundColor: style.bgColor}}>
-            <div className={text_styles.ProseMirror}>
+            <div className="ProseMirror">
               {HTMLReactParser(card.text)}
             </div>
           </div>

@@ -76,7 +76,12 @@ export default function Signin() {
         </div>
         <div className="formStdInput">
           <label>Password</label>
-          <InputPassword autoComplete="current-password" placeholder="password" onKeyUp={e => validatePassword()} onChange={e => setPassword((e.target as HTMLTextAreaElement).value)}/>
+          <InputPassword
+            autoComplete="current-password"
+            placeholder="password"
+            onKeyUp={e => validatePassword()}
+            onChange={e => setPassword((e.target as HTMLTextAreaElement).value)}
+          />
           <span className="formStdInputError">
             {passwordError}
           </span>
