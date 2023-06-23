@@ -4,7 +4,11 @@
       "username": "fedottt",
       "password": "$2b$10$31g8oHdptmywcLN6RSaOaOEnpOYdtWMeyNVXTNTH3zRnLHkE9mGZy",
       "sheets": [
-        "cool-sample"
+        "cool-sample",
+        "sample-sheet",
+        "other-sample-sheet",
+        "CGSG-forever",
+        "and-another-sample-sheet"
       ]
     },
     "FB1": {
@@ -12,6 +16,13 @@
       "password": "$2b$10$3Rf61/Mxc.ZdVreYVM6.e.22bni4syBkweBnwB4ul/etZWyMaZzVu",
       "sheets": [
         "cool-sample"
+      ]
+    },
+    "SampleUser": {
+      "username": "SampleUser",
+      "password": "$2b$10$20DZEyjM0YtTmMf99FEsxeI5lN3mD439xzaa9z3GQ7Wm7Nezxbi9m",
+      "sheets": [
+        "sample-sheet"
       ]
     }
   },
@@ -35,9 +46,9 @@
               "text": "sample normal task"
             },
             {
-              "label": "test form clearing",
+              "label": "test 4",
               "style": "default",
-              "text": "<p>Really important!</p>"
+              "text": "<p></p>"
             }
           ]
         },
@@ -45,9 +56,9 @@
           "label": "done",
           "cards": [
             {
-              "label": "test 4",
+              "label": "test form clearing",
               "style": "default",
-              "text": "<p></p>"
+              "text": "<p>Really important!</p>"
             }
           ]
         },
@@ -65,6 +76,209 @@
       "users": [
         "fedottt",
         "FB1"
+      ]
+    },
+    "sample-sheet": {
+      "name": "sample-sheet",
+      "styles": {
+        "default": {
+          "bgColor": "rgb(227, 203, 123)",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "table": [
+        {
+          "label": "in work",
+          "cards": [
+            {
+              "label": "Add one more user",
+              "style": "default",
+              "text": "<p>Maybe do</p>"
+            }
+          ]
+        },
+        {
+          "label": "done",
+          "cards": [
+            {
+              "label": "Test cards dragging",
+              "style": "default",
+              "text": "<p><strong>Most important </strong>feature.</p>"
+            },
+            {
+              "label": "Test columns dragging",
+              "style": "default",
+              "text": "<p><s>Not very</s> <em>important </em>feature</p>"
+            },
+            {
+              "label": "Create this sheet",
+              "style": "default",
+              "text": "<p></p>"
+            },
+            {
+              "label": "Fill this sheet",
+              "style": "default",
+              "text": "<p><strong>All content </strong>for sample</p>"
+            }
+          ]
+        },
+        {
+          "label": "to do",
+          "cards": [
+            {
+              "label": "Make presentation",
+              "style": "default",
+              "text": "<h2>Purpose:</h2><p>For practice final</p><h2>Difficulty:</h2><p>Normal</p>"
+            }
+          ]
+        }
+      ],
+      "users": [
+        "fedottt",
+        "SampleUser"
+      ]
+    },
+    "other-sample-sheet": {
+      "name": "other-sample-sheet",
+      "styles": {
+        "default": {
+          "bgColor": "rgb(227, 203, 123)",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "table": [
+        {
+          "label": "to do",
+          "cards": [
+            {
+              "label": "no care",
+              "style": "default",
+              "text": "sample easy task"
+            }
+          ]
+        },
+        {
+          "label": "in work",
+          "cards": [
+            {
+              "label": "normal",
+              "style": "default",
+              "text": "sample normal task"
+            }
+          ]
+        },
+        {
+          "label": "done",
+          "cards": [
+            {
+              "label": "important",
+              "style": "default",
+              "text": "sample important task"
+            },
+            {
+              "label": "All is done",
+              "style": "default",
+              "text": "<h3>Really?</h3><p>Yes, really done!</p>"
+            }
+          ]
+        }
+      ],
+      "users": [
+        "fedottt"
+      ]
+    },
+    "CGSG-forever": {
+      "name": "CGSG-forever",
+      "styles": {
+        "default": {
+          "bgColor": "rgb(227, 203, 123)",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "table": [
+        {
+          "label": "to do",
+          "cards": []
+        },
+        {
+          "label": "in work",
+          "cards": [
+            {
+              "label": "CGSG forever",
+              "style": "default",
+              "text": "<h1>CGSG forever</h1>"
+            },
+            {
+              "label": "CGSG forever",
+              "style": "default",
+              "text": "<h1>CGSG forever!!!!!!!!!!!!!!</h1>"
+            }
+          ]
+        },
+        {
+          "label": "done",
+          "cards": [
+            {
+              "label": "CGSG forever",
+              "style": "default",
+              "text": "<h1>CGSG forever</h1>"
+            },
+            {
+              "label": "CGSG forever",
+              "style": "default",
+              "text": "<h1>CGSG forever!!!</h1>"
+            }
+          ]
+        }
+      ],
+      "users": [
+        "fedottt"
+      ]
+    },
+    "and-another-sample-sheet": {
+      "name": "and-another-sample-sheet",
+      "styles": {
+        "default": {
+          "bgColor": "rgb(227, 203, 123)",
+          "labelColor": "black",
+          "textColor": "black"
+        }
+      },
+      "table": [
+        {
+          "label": "done",
+          "cards": [
+            {
+              "label": "no care",
+              "style": "default",
+              "text": "sample easy task"
+            },
+            {
+              "label": "normal",
+              "style": "default",
+              "text": "sample normal task"
+            },
+            {
+              "label": "important",
+              "style": "default",
+              "text": "sample important task"
+            }
+          ]
+        },
+        {
+          "label": "in work",
+          "cards": []
+        },
+        {
+          "label": "to do",
+          "cards": []
+        }
+      ],
+      "users": [
+        "fedottt"
       ]
     }
   }
